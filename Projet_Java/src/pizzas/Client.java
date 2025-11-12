@@ -62,7 +62,12 @@ public class Client implements InterClient {
   @Override
   public boolean connexion(String email, String mdp) {
     // TODO Auto-generated method stub
-    return false;
+    
+    if(this.email != email || this.password != mdp) {
+      return false;
+    }else {
+      return true;
+    }
   }
 
 

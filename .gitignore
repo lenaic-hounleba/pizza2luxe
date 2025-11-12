@@ -1,1 +1,7 @@
 /.metadata/
+/bin/
+/.classpath
+/.settings/
+/Projet_Java/.classpath
+/Projet_Java/.settings
+/Projet_Java/.checkstyle

@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * classe qui crée une pizza et permet de faire les opérations sur elle:
- * calculer le prix
- * 
+ * calculer le prix.
+ *
  * @author diamilatou-assura.diallo
  */
 
@@ -22,8 +22,8 @@ public class Pizza {
   
   /**
    * constructeur qui permet d'instancier une pizza à partir d'un nom et d'un
-   * type passés en paramètres
-   * 
+   * type passés en paramètres.
+   *
    * @nom nom de la pizza
    * @type un type parmi les 3 qui existent dans la classe TypePizza:
    *       viande,vegetarienne ou regionale
@@ -45,7 +45,11 @@ public class Pizza {
    * @return le prix de la pizza ou -1 si la pizza n'était pas valide
    */
   double getPrixPizza(Pizza pizza) {
-    return pizza.prixVente;
+    double prix = 0.0;
+    if (pizza.prixVente == 0.0) {
+      return 0.0;
+    }
+    return prix;
   }
   
   /**
@@ -60,6 +64,7 @@ public class Pizza {
    *         pas valide
    */
   boolean setPrixPizza(Pizza pizza, double prix) {
+    
     return true;
   }
   
@@ -72,7 +77,23 @@ public class Pizza {
    * @param pizza la pizza dont on veut calculer le prix minimal
    * @return le prix minimal de la pizza ou -1 si la pizza n'est pas valide
    */
-  double calculerPrixMinimalPizza(Pizza pizza) {}
+  double calculerPrixMinimalPizza(Pizza pizza) {
+    if (pizza == null || !(pizza instanceof Pizza)) {
+      return -1;
+    }
+    double prixmin = 0.0;
+    double somme = 0.0;
+    double sommetaux = 0.0;
+    for (int i = 0; i < this.ingredients.size(); i++) {
+      somme += this.ingredients.get(i).getPrix();
+      sommetaux = somme + somme * 40 / 100;
+      prixmin = Math.ceil(sommetaux * 10) / 10.0;
+      
+    }
+    return prixmin;
+  }
+  
+  
 }
 
 

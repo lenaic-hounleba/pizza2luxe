@@ -77,6 +77,9 @@ public class Client implements InterClient {
   @Override
   public void deconnexion() throws NonConnecteException {
     // TODO Auto-generated method stub
+    //nuke the fields?
+    this.email = null;
+    this.password = null;
     
   }
 

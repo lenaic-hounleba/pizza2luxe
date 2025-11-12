@@ -110,7 +110,7 @@ public class Evaluation {
         // we'll need the client name getters for this one
         //when those are done TODO: replace the values in [] brackets
 
-        return "Evaluation par [client] de [pizza] note:"+note+" commentaire:"+commentaire;
+        return "Evaluation par [client] de "+pizza+" note:"+note+" commentaire:"+commentaire;
 
 
 

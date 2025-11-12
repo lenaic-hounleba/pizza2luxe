@@ -6,8 +6,9 @@ import java.util.Set;
 
 //TODO: implement interface methods
 //TODO: Commande class needs to be completed to finish this class
-
-
+//TODO: implement filter choice logic
+//TODO: implement filter choice storage
+//TODO: CRITICAL RENAME CLIENT TO SOMETHING THAT PROCESSES ALL THAT STUFF AND MAKE ANOTHER CLIENT THAT ACTUALLY HANDLES CLIENT RESP
 
 
 

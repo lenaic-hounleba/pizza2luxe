@@ -1,5 +1,6 @@
 package pizzas;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,60 +11,128 @@ import java.util.List;
  * @author Lenaïc Love HOUNLEBA
  */
 public class Commande {
-  private String pizzas;
+  private LocalDateTime dateCommande;
   private double montantTotal;
   private String adresseLivraison;
-  private List<String> etat = new ArrayList<>();
+  private List<Pizza> pizzas;
+  private int quantite;
+  private StatutCommande statut;
+  private Client client;
   
   
   
-  public Commande(String pizzas, double montantTotal, String adresseLivraison,
-      List<String> etat) {
-    this.pizzas = pizzas;
-    this.montantTotal = montantTotal;
+  public Commande(String adresseLivraison, List<Pizza> pizzas, int quantite) {
+    this.dateCommande = LocalDateTime.now();
+    this.montantTotal = calculerMontantTotal();
     this.adresseLivraison = adresseLivraison;
-    this.etat = etat;
-  }
-  
-  
-  public String getPizzas() {
-    return pizzas;
-  }
-  
-  
-  public void setPizzas(String pizzas) {
     this.pizzas = pizzas;
+    this.quantite = quantite;
+    this.statut = StatutCommande.cree;
+    this.client = Client.getNom();
   }
   
   
-  public double getmontantTotal() {
+  
+  public LocalDateTime getDateCommande() {
+    return dateCommande;
+  }
+  
+  
+  
+  public void setDateCommande(LocalDateTime dateCommande) {
+    this.dateCommande = dateCommande;
+  }
+  
+  
+  
+  public double getMontantTotal() {
     return montantTotal;
   }
   
   
-  public void setmontantTotal(double montantTotal) {
+  
+  public void setMontantTotal(double montantTotal) {
     this.montantTotal = montantTotal;
   }
   
   
-  public void setadresseLivraison(String adresseLivraison) {
-    this.adresseLivraison = adresseLivraison;
-  }
   
-  public String getadresseLivraison() {
+  public String getAdresseLivraison() {
     return adresseLivraison;
   }
   
   
-  public List<String> getetat() {
-    return etat;
+  
+  public void setAdresseLivraison(String adresseLivraison) {
+    this.adresseLivraison = adresseLivraison;
   }
   
   
-  public void setetat(List<String> etat) {
-    this.etat = etat;
+  
+  
+  public Pizza getPizza() {
+    return pizzas;
   }
   
+  
+  
+  public void setPizza(Pizza pizzas) {
+    this.pizzas = pizzas;
+  }
+  
+  
+  
+  public int getQuantite() {
+    return quantite;
+  }
+  
+  
+  
+  public void setQuantite(int quantite) {
+    this.quantite = quantite;
+  }
+  
+  
+  
+  public StatutCommande getStatut() {
+    return statut;
+  }
+  
+  
+  
+  public void setStatut(StatutCommande statut) {
+    this.statut = statut;
+  }
+  
+  
+  
+  public double getPrixUnitaire() {
+    return prixUnitaire;
+  }
+  
+  
+  
+  public void setPrixUnitaire(double prixUnitaire) {
+    this.prixUnitaire = prixUnitaire;
+  }
+  
+  
+  
+  public Client getClient() {
+    return client;
+  }
+  
+  
+  
+  public void setClient(Client client) {
+    this.client = client;
+  }
+  
+  public double montantTotal(double prixUnitaire, int quantite) {
+    double montant total = 
+  }
+  
+
   
   
 }

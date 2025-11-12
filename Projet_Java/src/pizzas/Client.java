@@ -3,21 +3,34 @@ package pizzas;
 import java.util.List;
 import java.util.Set;
 
+
+//TODO: implement interface methods
+//TODO: Commande class needs to be completed to finish this class
+
+
+
+
+
 public class Client implements InterClient {
   
-  final InformationPersonnelle info;
-  final String email;
+  InformationPersonnelle info;
+  String email;
   String password;
   
   
   
   
   
-  public Client(String email, String password){
+  public Client(String email, String password,InformationPersonnelle info){
+    
+
+    //constructor just calls inscription (0 on success) method for now
+    inscription(email,password,info); 
     
     
-    this.email = email;
-    this.password = password;
+    
+    
+   
    
     
     
@@ -31,6 +44,14 @@ public class Client implements InterClient {
   public int inscription(String email, String mdp,
       InformationPersonnelle info) {
     // TODO Auto-generated method stub
+    this.email = email;
+    this.password = mdp;
+    this.info = info;
+    
+    
+    
+    
+    
     return 0;
   }
 

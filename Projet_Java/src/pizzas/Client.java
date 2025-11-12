@@ -13,7 +13,7 @@ public class Client implements InterClient {
   
   
   
-  public Client(String email, String password{
+  public Client(String email, String password){
     
     
     this.email = email;

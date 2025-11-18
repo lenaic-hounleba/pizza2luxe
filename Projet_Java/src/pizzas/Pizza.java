@@ -44,10 +44,10 @@ public class Pizza {
    * @param pizza la pizza dont on veut connaitre le prix
    * @return le prix de la pizza ou -1 si la pizza n'était pas valide
    */
-  double getPrixPizza(Pizza pizza) {
-    double prix = 0.0;
+  public double getPrixPizza(Pizza pizza) {
+    double prix = pizza.prixVente;
     if (pizza.prixVente == 0.0) {
-      return 0.0;
+      prix = calculerPrixMinimalPizza(pizza);
     }
     return prix;
   }
@@ -64,6 +64,12 @@ public class Pizza {
    *         pas valide
    */
   boolean setPrixPizza(Pizza pizza, double prix) {
+    double prixMin = calculerPrixMinimalPizza(pizza);
+    if (prixMin < prix || pizza == null || !(pizza instanceof Pizza)) {
+      
+      return false;
+    }
+    pizza.prixVente = prix;
     
     return true;
   }
@@ -91,6 +97,22 @@ public class Pizza {
       
     }
     return prixmin;
+  }
+  
+  /**
+   * Ajoute une photo à une pizza. Remplace la photo précédente si une photo
+   * était déjà associée à la pizza.
+   *
+   * @param pizza la pizza à laquelle on veut ajouter une photo
+   * @param file le nom du fichier qui contient l'image
+   * @return <code>true</code> si la photo a été ajoutée, <code>false</code> en
+   *         cas de problème (pizza invalide, fichier qui ne contient pas une
+   *         image...)
+   * @throws IOException en cas d'erreur de lecture sur le fichier
+   */
+  boolean ajouterPhoto(Pizza pizza, String file) throws IOException {
+    
+    return true;
   }
   
   

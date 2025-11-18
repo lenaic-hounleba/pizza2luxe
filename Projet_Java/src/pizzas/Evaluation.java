@@ -24,7 +24,7 @@ public class Evaluation {
   
   // we'll use getters to get those attributes
   
-  private final Client client; // le client qui laisse l'evaluation
+  private final GestionClient client; // le client qui laisse l'evaluation
   private final Pizza pizza; // la pizza (duh)
   private int note; // note spans from 0-5
   private String commentaire; // le commentaire laissé par le client avec la
@@ -39,7 +39,7 @@ public class Evaluation {
    * @param note la note attribuée (0 à 5)
    * @param commentaire commentaire facultatif (peut être null)
    */
-  public Evaluation(Client client, Pizza pizza, int note, String commentaire) {
+  public Evaluation(GestionClient client, Pizza pizza, int note, String commentaire) {
     
     // we could add error handling here
     
@@ -68,7 +68,7 @@ public class Evaluation {
    * @param pizza la pizza concernée
    * @param note la note attribuée (0 à 5)
    */
-  public Evaluation(Client client, Pizza pizza, int note) {
+  public Evaluation(GestionClient client, Pizza pizza, int note) {
     this(client, pizza, note, ""); // appele le constructeur original et insert
                           
   }
@@ -98,7 +98,7 @@ public class Evaluation {
     
   }
   
-  public Client getClient() {
+  public GestionClient getClient() {
     return client;
   }
   

@@ -8,11 +8,16 @@ import java.util.Set;
 //TODO: Commande class needs to be completed to finish this class
 //TODO: implement filter choice logic
 //TODO: implement filter choice storage
-//TODO:  RENAME CLIENT TO SOMETHING THAT PROCESSES ALL THAT STUFF AND MAKE ANOTHER CLIENT THAT ACTUALLY HANDLES CLIENT RESP
+
+/**
+ * classe qui gère les traitements liès au client.
+ *
+ * @author Dorian Fleurquin
+ */
 
 
 
-public class Client implements InterClient {
+public class GestionClient implements InterClient {
   
   InformationPersonnelle info;
   String email;
@@ -22,7 +27,7 @@ public class Client implements InterClient {
   
   
   
-  public Client(String email, String password,InformationPersonnelle info){
+  public GestionClient(String email, String password,InformationPersonnelle info){
     
 
     //constructor just calls inscription (0 on success) method for now

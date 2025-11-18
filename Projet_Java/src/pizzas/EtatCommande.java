@@ -1,5 +1,5 @@
 package pizzas;
 
-public enum StatutCommande {
+public enum EtatCommande {
   cree, validee, traitee
 }

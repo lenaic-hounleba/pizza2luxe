@@ -8,7 +8,7 @@ import java.util.Set;
 //TODO: Commande class needs to be completed to finish this class
 //TODO: implement filter choice logic
 //TODO: implement filter choice storage
-//TODO: CRITICAL RENAME CLIENT TO SOMETHING THAT PROCESSES ALL THAT STUFF AND MAKE ANOTHER CLIENT THAT ACTUALLY HANDLES CLIENT RESP
+//TODO:  RENAME CLIENT TO SOMETHING THAT PROCESSES ALL THAT STUFF AND MAKE ANOTHER CLIENT THAT ACTUALLY HANDLES CLIENT RESP
 
 
 
@@ -64,7 +64,7 @@ public class Client implements InterClient {
   public boolean connexion(String email, String mdp) {
     // TODO Auto-generated method stub
     
-    if(this.email != email || this.password != mdp) {
+    if (this.email != email || this.password != mdp) {
       return false;
     }else {
       return true;

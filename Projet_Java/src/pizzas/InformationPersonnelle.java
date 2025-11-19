@@ -60,7 +60,10 @@ public final class InformationPersonnelle implements java.io.Serializable {
    * @return l'âge de la personne
    */
   public int getAge() {
+    if(age>=0) {
     return age;
+    }
+    else return 0;
   }
   
   /**
@@ -117,7 +120,12 @@ public final class InformationPersonnelle implements java.io.Serializable {
     super();
     this.nom = nom;
     this.prenom = prenom;
-    this.adresse = adresse;
+    if(adresse != null) {
+      this.adresse = adresse;
+    }
+    else {
+      this.adresse=" ";
+    }
     this.age = age;
   }
   

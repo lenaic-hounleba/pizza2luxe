@@ -15,10 +15,10 @@ import java.util.List;
  */
 
 public class Pizza {
-  String nom;
-  TypePizza type;
-  List<Ingredient> ingredients;
-  double prixVente;
+  private String nom;
+  private TypePizza type;
+  private List<Ingredient> ingredients;
+  private double prixVente;
   
   /**
    * constructeur qui permet d'instancier une pizza à partir d'un nom et d'un
@@ -63,7 +63,7 @@ public class Pizza {
    *         (dans ce cas, le prix n'a pas été modifié) ou que la pizza n'était
    *         pas valide
    */
-  boolean setPrixPizza(Pizza pizza, double prix) {
+  public boolean setPrixPizza(Pizza pizza, double prix) {
     double prixMin = calculerPrixMinimalPizza(pizza);
     if (prixMin < prix || pizza == null || !(pizza instanceof Pizza)) {
       
@@ -83,7 +83,7 @@ public class Pizza {
    * @param pizza la pizza dont on veut calculer le prix minimal
    * @return le prix minimal de la pizza ou -1 si la pizza n'est pas valide
    */
-  double calculerPrixMinimalPizza(Pizza pizza) {
+  public double calculerPrixMinimalPizza(Pizza pizza) {
     if (pizza == null || !(pizza instanceof Pizza)) {
       return -1;
     }
@@ -110,7 +110,7 @@ public class Pizza {
    *         image...)
    * @throws IOException en cas d'erreur de lecture sur le fichier
    */
-  boolean ajouterPhoto(Pizza pizza, String file) throws IOException {
+  public boolean ajouterPhoto(Pizza pizza, String file) throws IOException {
     
     return true;
   }

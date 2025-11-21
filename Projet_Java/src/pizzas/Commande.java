@@ -10,7 +10,8 @@ import java.util.Map;
  * identifiant unique, un client, un ensemble de pizzas avec leurs quantités, le
  * statut de la commande, les dates importantes et le montant total.
  *
- * <p>Une commande suit trois états :
+ * <p>
+ * Une commande suit trois états :
  * </p>
  * <ul>
  * <li>creeee : la commande est en cours de création et peut être modifiée</li>
@@ -64,9 +65,9 @@ public class Commande {
     this.montantTotal = 0.0;
   }
   
-  // ----------------------------------------------------------------------
-  // MÉTHODES
-  // ----------------------------------------------------------------------
+
+
+  // MÉTHODES -------------------------------------------------------------
   
   /**
    * Ajoute une pizza à la commande avec une quantité donnée. Si la pizza existe
@@ -190,9 +191,8 @@ public class Commande {
     return montantTotal;
   }
   
-  // ----------------------------------------------------------------------
-  // GETTERS
-  // ----------------------------------------------------------------------
+
+  // GETTERS ----------------------------------------------------------------
   
   public int getId() {
     return id;

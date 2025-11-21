@@ -18,7 +18,7 @@ public class Pizza {
   private String nom;
   private TypePizza type;
   private List<Ingredient> ingredients;
-  private double prixVente;
+  public double prixVente;
   
   /**
    * constructeur qui permet d'instancier une pizza à partir d'un nom et d'un
@@ -28,7 +28,7 @@ public class Pizza {
    * @type un type parmi les 3 qui existent dans la classe TypePizza:
    *       viande,vegetarienne ou regionale
    */
-  Pizza(String nom, TypePizza type) {
+  public Pizza(String nom, TypePizza type) {
     this.nom = nom;
     this.type = type;
     this.ingredients = new ArrayList<>();

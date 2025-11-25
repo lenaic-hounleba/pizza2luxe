@@ -2,7 +2,9 @@ package pizzas;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 // A compléter
@@ -15,9 +17,11 @@ import java.util.List;
  */
 
 public class Pizza {
+ 
+
   private String nom;
   private TypePizza type;
-  private List<Ingredient> ingredients;
+  private Set<Ingredient> ingredients;
   public double prixVente;
   
   /**
@@ -31,11 +35,19 @@ public class Pizza {
   public Pizza(String nom, TypePizza type) {
     this.nom = nom;
     this.type = type;
-    this.ingredients = new ArrayList<>();
+    this.ingredients = new HashSet<>();
     this.prixVente = 0.0;
     
     
   }
+  
+  public Pizza(String nom, TypePizza type, Set<Ingredient> ingredients,
+      double prixVente) {
+    this(nom,type);
+    this.ingredients = ingredients;
+    this.prixVente = prixVente;
+  }
+  
   
   /**
    * Retourne le prix de vente d'une pizza. Si le prix n'a pas été fixé

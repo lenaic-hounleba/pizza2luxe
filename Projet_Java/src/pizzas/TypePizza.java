@@ -21,5 +21,7 @@ public enum TypePizza {
    * Pizzas composées d'ingrédients régionaux : bretonne aux noix de
    * Saint-Jacques, landaise au canard, savoyarde au reblochon...
    */
-  Regionale,
+  Regionale,;
+
+ 
 }

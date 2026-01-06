@@ -96,14 +96,14 @@ public class Pizza {
    * @return le prix minimal de la pizza ou -1 si la pizza n'est pas valide
    */
   public double calculerPrixMinimalPizza(Pizza pizza) {
-    if (pizza == null || !(pizza instanceof Pizza)) {
+    if (pizza == null) {
       return -1;
     }
     double prixmin = 0.0;
     double somme = 0.0;
     double sommetaux = 0.0;
-    for (int i = 0; i < this.ingredients.size(); i++) {
-      somme += this.ingredients.get(i).getPrix();
+    for (int i = 0; i < pizza.ingredients.size(); i++) {
+      somme += pizza.getIngredients.getPrixVente();
       sommetaux = somme + somme * 40 / 100;
       prixmin = Math.ceil(sommetaux * 10) / 10.0;
       
@@ -111,6 +111,38 @@ public class Pizza {
     return prixmin;
   }
   
+  public String getNom() {
+    return nom;
+  }
+
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
+
+  public TypePizza getType() {
+    return type;
+  }
+
+  public void setType(TypePizza type) {
+    this.type = type;
+  }
+
+  public Set<Ingredient> getIngredients() {
+    return ingredients;
+  }
+
+  public void setIngredients(Set<Ingredient> ingredients) {
+    this.ingredients = ingredients;
+  }
+
+  public double getPrixVente() {
+    return prixVente;
+  }
+
+  public void setPrixVente(double prixVente) {
+    this.prixVente = prixVente;
+  }
+
   /**
    * Ajoute une photo à une pizza. Remplace la photo précédente si une photo
    * était déjà associée à la pizza.

@@ -1,101 +1,165 @@
-
 package pizzas;
-  
+
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-
-
-
 /**
-* classe qui permet de définir une pizza.
-*
-* @author diamilatou-assura.diallo
-*/
-
-public class Pizza {
-   
+ * Classe qui crée une pizza et permet de faire les opérations sur elle :
+ * calculer le prix.
+ *
+ * @author diamilatou-assura.diallo
+ */
+public class Pizza implements Serializable {
+  
+  /**
+   * Identifiant de sérialisation.
+   */
+  private static final long serialVersionUID = 1L;
+  
   private String nom;
   private TypePizza type;
   private Set<Ingredient> ingredients;
   private double prixVente;
   private String photo;
-    
-    
-  /**
-  * constructeur qui permet d'instancier une pizza à partir d'un nom et d'un
-  * type passés en paramètres.
-  *
-  * @nom nom de la pizza
-  * @type un type parmi les 3 qui existent dans la classe TypePizza:
-  *       viande,vegetarienne ou regionale
-  */
   
+  /**
+   * Constructeur qui permet d'instancier une pizza à partir d'un nom et d'un
+   * type passés en paramètres.
+   *
+   * @param nom nom de la pizza
+   * @param type un type parmi : viande, vegetarienne ou regionale
+   */
   public Pizza(String nom, TypePizza type) {
     this.nom = nom;
     this.type = type;
     this.ingredients = new HashSet<>();
     this.prixVente = 0.0;
+    this.photo = null;
   }
-
-
+  
+  /**
+   * Constructeur complet.
+   *
+   * @param nom nom de la pizza
+   * @param type type de la pizza
+   * @param ingredients ingrédients de la pizza
+   * @param prixVente prix fixé manuellement (0 si non fixé)
+   */
+  public Pizza(String nom, TypePizza type, Set<Ingredient> ingredients,
+      double prixVente) {
+    this(nom, type);
+    if (ingredients != null) {
+      this.ingredients = ingredients;
+    }
+    this.prixVente = prixVente;
+  }
+  
+  /**
+   * Retourne le prix de vente d'une pizza. Si le prix n'a pas été fixé
+   * manuellement, retourne le prix minimal basé sur le prix des ingrédients.
+   *
+   * @return le prix de la pizza
+   */
+  public double getPrixPizza() {
+    if (prixVente > 0.0) {
+      return prixVente;
+    }
+    return calculerPrixMinimalPizza();
+  }
+  
+  /**
+   * Modifie le prix de vente d'une pizza. Le prix doit être supérieur ou égal
+   * au prix minimal de la pizza.
+   *
+   * @param prix le nouveau prix
+   * @return true si le prix a été modifié, false sinon
+   */
+  public boolean setPrixPizza(double prix) {
+    if (prix < calculerPrixMinimalPizza()) {
+      return false;
+    }
+    this.prixVente = prix;
+    return true;
+  }
+  
+  /**
+   * Calcule le prix minimal d'une pizza en fonction de ses ingrédients (sans
+   * modifier le prix courant de la pizza). Le prix minimal d'une pizza est la
+   * somme des prix de ses ingrédients augmentée de 40% et arrondie à la dizaine
+   * d'€ supérieure.
+   *
+   * @return le prix minimal de la pizza
+   */
+  public double calculerPrixMinimalPizza() {
+    double somme = 0.0;
+    
+    for (Ingredient ing : ingredients) {
+      if (ing != null) {
+        somme += ing.getPrix();
+      }
+    }
+    
+    double avecMarge = somme * 1.4;
+    return Math.ceil(avecMarge / 10.0) * 10.0;
+  }
+  
   public String getNom() {
     return nom;
   }
-
-
+  
   public void setNom(String nom) {
     this.nom = nom;
   }
-
-
+  
   public TypePizza getType() {
     return type;
   }
-
-
+  
   public void setType(TypePizza type) {
     this.type = type;
   }
-
-
+  
   public Set<Ingredient> getIngredients() {
     return ingredients;
   }
-
-
+  
   public void setIngredients(Set<Ingredient> ingredients) {
-    this.ingredients = ingredients;
+    if (ingredients == null) {
+      this.ingredients = new HashSet<>();
+    } else {
+      this.ingredients = ingredients;
+    }
   }
-
-
+  
   public double getPrixVente() {
     return prixVente;
   }
-
-
+  
   public void setPrixVente(double prixVente) {
     this.prixVente = prixVente;
   }
-
-
-  public String getPhoto() {
-    return photo;
+  
+  /**
+   * Ajoute une photo à une pizza. Remplace la photo précédente si une photo
+   * était déjà associée à la pizza.
+   *
+   * @param file le nom du fichier qui contient l'image
+   * @return true si la photo a été ajoutée, false sinon
+   * @throws IOException en cas d'erreur de lecture sur le fichier
+   */
+  public boolean ajouterPhoto(String file) throws IOException {
+    if (file == null || file.isEmpty()) {
+      return false;
+    }
+    // Projet simplifié : on stocke seulement le nom du fichier
+    this.photo = file;
+    return true;
   }
-
-
-  public void setPhoto(String photo) {
-    this.photo = photo;
+  
+  @Override
+  public String toString() {
+    return nom;
   }
-    
-   
-
-    
-    
 }
-
-
-
-  
-  
-

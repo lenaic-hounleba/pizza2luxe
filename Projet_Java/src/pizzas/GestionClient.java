@@ -407,7 +407,7 @@ public class GestionClient implements InterClient {
       }
 
       if (filtrePrixMax != null
-              && pizza.getPrixPizza(pizza) > filtrePrixMax) {
+              && pizza.getPrixPizza() > filtrePrixMax) {
         continue;
       }
 

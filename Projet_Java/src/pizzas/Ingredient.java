@@ -10,7 +10,8 @@ public class Ingredient {
   String nom;
   double prix;
   
-  Ingredient(String nom, double prix) {
+  
+  public Ingredient(String nom, double prix) {
     this.nom = nom;
     this.prix = prix;
   }

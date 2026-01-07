@@ -1,144 +1,114 @@
 package pizzas;
 
-// A compléter
-
-// TODO: this class needs:
-
-// -the client name getters
-// -the pizza name getters
-
 /**
- * classe qui crée une Evaluation.
+ * Classe qui représente une évaluation laissée par un client sur une pizza.
+ *
+ * Une évaluation contient un client, une pizza, une note entre 0 et 5 et un
+ * commentaire optionnel.
  *
  * @author Dorian Fleurquin
  */
-
-
-
 public class Evaluation {
-  
-  
 
-  
-  
-  
-  // we'll use getters to get those attributes
-  
-  private final GestionClient client; // le client qui laisse l'evaluation
-  private final Pizza pizza; // la pizza (duh)
-  private int note; // note spans from 0-5
-  private String commentaire; // le commentaire laissé par le client avec la
-  
-  
-  
+  /** Client qui laisse l'évaluation. */
+  private final InformationPersonnelle client;
+
+  /** Pizza évaluée. */
+  private final Pizza pizza;
+
+  /** Note attribuée (0 à 5). */
+  private final int note;
+
+  /** Commentaire associé (jamais null). */
+  private final String commentaire;
+
   /**
    * Constructeur d'une évaluation.
    *
    * @param client le client qui laisse l'évaluation
    * @param pizza la pizza concernée
    * @param note la note attribuée (0 à 5)
-   * @param commentaire commentaire facultatif (peut être null)
+   * @param commentaire le commentaire (peut être null)
    */
-  public Evaluation(GestionClient client, Pizza pizza, int note, String commentaire) {
-    
-    // we could add error handling here
-    
-    
+  public Evaluation(InformationPersonnelle client, Pizza pizza, int note,
+                    String commentaire) {
     this.client = client;
     this.pizza = pizza;
-    setNote(note); // this cleans up a potential out of bounds value
-    
-    // check null sur le commentaire
-    
-    if (commentaire != null) {
-      this.commentaire = commentaire;
-    } else {
+    this.note = corrigerNote(note);
+
+    if (commentaire == null) {
       this.commentaire = "";
+    } else {
+      this.commentaire = commentaire;
     }
-    
-    
-    
   }
-  
-  
+
   /**
-   * Constructeur surchargé d'une évaluation sans commentaire.
+   * Constructeur d'une évaluation sans commentaire.
    *
    * @param client le client qui laisse l'évaluation
    * @param pizza la pizza concernée
    * @param note la note attribuée (0 à 5)
    */
-  public Evaluation(GestionClient client, Pizza pizza, int note) {
-    this(client, pizza, note, ""); // appele le constructeur original et insert
-                          
+  public Evaluation(InformationPersonnelle client, Pizza pizza, int note) {
+    this(client, pizza, note, "");
   }
-  
+
   /**
-   * set la note de l'eval.
-   * 
+   * Retourne le client qui a laissé l'évaluation.
+   *
+   * @return le client
    */
-  
-  // make sure note is in range
-  // correcting the value by getting it to nearest valid rating
-  
-  
-  public void setNote(int note) {
-    
- 
-    
-    
-    if (note < 0) {
-      this.note = 0;
-    } else if (note > 5) {
-      this.note = 5;
-      
-    } else {
-      this.note = note;
-    }
-    
-  }
-  
-  public GestionClient getClient() {
+  public InformationPersonnelle getClient() {
     return client;
   }
-  
+
+  /**
+   * Retourne la pizza évaluée.
+   *
+   * @return la pizza
+   */
   public Pizza getPizza() {
     return pizza;
   }
-  
+
+  /**
+   * Retourne la note attribuée.
+   *
+   * @return la note (0 à 5)
+   */
   public int getNote() {
     return note;
   }
-  
+
+  /**
+   * Retourne le commentaire.
+   *
+   * @return le commentaire (jamais null)
+   */
   public String getCommentaire() {
     return commentaire;
   }
-  
-  
-  // to string output
-  
-  
+
   /**
-   * methode qui affiche l'evaluation en tant que string
-   * 
+   * Corrige une note pour la ramener dans l'intervalle [0, 5].
+   *
+   * @param note la note à corriger
+   * @return la note corrigée
    */
-  
-  
-  // make sure note is in range
-  // correcting the value by getting it to nearest valid rating
-  
-  public String toString() {
-    
-    // we'll need the client name getters for this one
-    // when those are done TODO: replace the values in [] brackets
-    
-    return "Evaluation par [client] de " + pizza + " note:" + note
-        + " commentaire:" + commentaire;
-    
-    
-    
+  private static int corrigerNote(int note) {
+    if (note < 0) {
+      return 0;
+    }
+    if (note > 5) {
+      return 5;
+    }
+    return note;
   }
-  
-  
-  
+
+  @Override
+  public String toString() {
+    return "Evaluation par " + client + " de " + pizza + " note:" + note
+            + " commentaire:" + commentaire;
+  }
 }

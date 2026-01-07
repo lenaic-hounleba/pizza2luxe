@@ -64,4 +64,3 @@ public class Client {
     return password != null && password.equals(mdp);
   }
 }
-

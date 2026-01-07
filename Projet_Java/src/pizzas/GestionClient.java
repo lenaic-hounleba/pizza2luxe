@@ -7,8 +7,10 @@ import java.util.Set;
 
 /**
  * Classe qui gère les traitements liés au client.
- * @author Dorian Fleurquin
+ *
  * Cette classe implémente les services définis par l'interface InterClient.
+ *
+ * @author Dorian Fleurquin
  */
 public class GestionClient implements InterClient {
 
@@ -40,7 +42,6 @@ public class GestionClient implements InterClient {
     this.filtrePrixMax = null;
   }
 
-  @Override
   /**
    * Inscription d'un nouveau client.
    *
@@ -56,6 +57,7 @@ public class GestionClient implements InterClient {
    *         informations personnelles sont invalides, -4 si l'email n'est
    *         pas bien formé
    */
+  @Override
   public int inscription(String email, String mdp,
                          InformationPersonnelle info) {
 
@@ -89,7 +91,6 @@ public class GestionClient implements InterClient {
     return 0;
   }
 
-
   /**
    * Connexion d'un client.
    *
@@ -120,12 +121,11 @@ public class GestionClient implements InterClient {
     return true;
   }
 
-
-/**
- * Déconnecte le client actuellement connecté.
- *
- * @throws NonConnecteException si aucun client n'est connecté
- */
+  /**
+   * Déconnecte le client actuellement connecté.
+   *
+   * @throws NonConnecteException si aucun client n'est connecté
+   */
   @Override
   public void deconnexion() throws NonConnecteException {
 
@@ -135,7 +135,6 @@ public class GestionClient implements InterClient {
 
     clientConnecte = null;
   }
-
 
   /**
    * Crée une nouvelle commande pour le client actuellement connecté.
@@ -159,7 +158,6 @@ public class GestionClient implements InterClient {
 
     return cmd;
   }
-
 
   /**
    * Ajoute une certaine quantité d'une pizza à une commande.
@@ -198,7 +196,6 @@ public class GestionClient implements InterClient {
     cmd.ajouterPizza(pizza, nombre);
   }
 
-
   /**
    * Valide une commande en cours.
    *
@@ -234,10 +231,8 @@ public class GestionClient implements InterClient {
               "La commande n'est pas modifiable.");
     }
 
-
     cmd.valider();
   }
-
 
   /**
    * Annule une commande en cours.
@@ -277,7 +272,6 @@ public class GestionClient implements InterClient {
     data.commandes.remove(cmd);
   }
 
-
   /**
    * Renvoie la liste des commandes en cours du client connecté.
    *
@@ -306,7 +300,6 @@ public class GestionClient implements InterClient {
 
     return result;
   }
-
 
   /**
    * Renvoie la liste des commandes passées du client connecté.
@@ -337,7 +330,6 @@ public class GestionClient implements InterClient {
     return result;
   }
 
-
   /**
    * Renvoie l'ensemble des pizzas en vente.
    *
@@ -347,7 +339,6 @@ public class GestionClient implements InterClient {
   public Set<Pizza> getPizzas() {
     return new HashSet<>(data.pizzasByName.values());
   }
-
 
   /**
    * Ajoute un filtre sur le type de pizza.
@@ -360,7 +351,6 @@ public class GestionClient implements InterClient {
       filtreType = type;
     }
   }
-
 
   /**
    * Ajoute un filtre sur les ingrédients.
@@ -388,7 +378,6 @@ public class GestionClient implements InterClient {
     }
   }
 
-
   /**
    * Ajoute un filtre sur le prix maximum des pizzas.
    *
@@ -400,7 +389,6 @@ public class GestionClient implements InterClient {
       filtrePrixMax = prixMaximum;
     }
   }
-
 
   /**
    * Sélectionne les pizzas qui valident tous les filtres définis.
@@ -414,18 +402,15 @@ public class GestionClient implements InterClient {
 
     for (Pizza pizza : data.pizzasByName.values()) {
 
-      // Filtre sur le type
       if (filtreType != null && pizza.getType() != filtreType) {
         continue;
       }
 
-      // Filtre sur le prix
       if (filtrePrixMax != null
               && pizza.getPrixPizza(pizza) > filtrePrixMax) {
         continue;
       }
 
-      // Filtre sur les ingrédients
       if (filtreIngredients != null) {
         boolean ok = true;
 
@@ -456,7 +441,6 @@ public class GestionClient implements InterClient {
     return result;
   }
 
-
   /**
    * Supprime tous les filtres définis.
    */
@@ -466,7 +450,6 @@ public class GestionClient implements InterClient {
     filtreIngredients = null;
     filtrePrixMax = null;
   }
-
 
   /**
    * Retourne l'ensemble des évaluations d'une pizza.
@@ -489,7 +472,6 @@ public class GestionClient implements InterClient {
 
     return new HashSet<>(evals);
   }
-
 
   /**
    * Retourne la note moyenne des évaluations d'une pizza.
@@ -517,7 +499,6 @@ public class GestionClient implements InterClient {
 
     return (double) somme / evals.size();
   }
-
 
   /**
    * Ajoute une évaluation à une pizza de la part du client connecté.
@@ -547,7 +528,6 @@ public class GestionClient implements InterClient {
       return false;
     }
 
-    // Vérifie que le client a commandé la pizza dans une commande traitée
     boolean aCommande = false;
 
     for (Commande cmd : data.commandes) {
@@ -572,10 +552,8 @@ public class GestionClient implements InterClient {
       data.evaluationsParPizza.put(pizza, evals);
     }
 
-    // Vérifie si le client a déjà évalué cette pizza
     for (Evaluation e : evals) {
       if (e.getClient()
-              .getInformationPersonnelle()
               .equals(clientConnecte.getInformationPersonnelle())) {
         return false;
       }
@@ -592,22 +570,3 @@ public class GestionClient implements InterClient {
   }
 
 }
-
-    
-    
-   
-   
-    
-    
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-

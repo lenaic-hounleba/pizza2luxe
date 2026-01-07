@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Représente une commande de pizzas passée par un client. Une commande est
- * composée d'un ensemble de pizzas avec leurs quantités et possède un état qui
- * évolue de créée à validée puis traitée.
+ * Représente une commande de pizzas passée par un client. Une commande possède
+ * un état qui évolue de créée à validée puis traitée.
+ *
+ * Une commande créée peut être modifiée par le client. Une commande validée ou
+ * traitée n'est plus modifiable.
  *
  * @author lenaic-love.hounleba
  */
@@ -39,21 +41,35 @@ public class Commande {
   }
   
   /**
-   * Ajoute une pizza à la commande en incrémentant sa quantité de 1.
+   * Ajoute une certaine quantité d'une pizza à la commande. Si la pizza est
+   * déjà présente, la quantité est cumulée.
    *
-   * @param pizza pizza à ajouter à la commande
+   * @param pizza la pizza à ajouter
+   * @param nombre la quantité à ajouter (doit être strictement positive)
    * @throws CommandeException si la commande n'est plus modifiable
    */
-  public void ajouterPizza(Pizza pizza) {
-    if (etat != EtatCommande.creee) {
+  public void ajouterPizza(Pizza pizza, int nombre) {
+    if (!estModifiable()) {
       throw new CommandeException("La commande n'est plus modifiable.");
     }
-    pizzas.merge(pizza, 1, Integer::sum);
+    if (pizza == null || nombre <= 0) {
+      throw new CommandeException("Pizza ou quantité invalide.");
+    }
+    
+    pizzas.merge(pizza, nombre, Integer::sum);
   }
   
   /**
-   * Valide la commande. Une commande validée ne peut plus être modifiée par le
-   * client.
+   * Indique si la commande est encore modifiable.
+   *
+   * @return true si la commande est en cours de création, false sinon
+   */
+  public boolean estModifiable() {
+    return etat == EtatCommande.creee;
+  }
+  
+  /**
+   * Valide la commande. Une commande validée ne peut plus être modifiée.
    *
    * @throws CommandeException si la commande n'est pas en cours de création
    */
@@ -65,7 +81,7 @@ public class Commande {
   }
   
   /**
-   * Marque la commande comme traitée. Cette opération est effectuée par le
+   * Marque la commande comme traitée. Cette opération est réalisée par le
    * pizzaïolo.
    *
    * @throws CommandeException si la commande n'est pas validée
@@ -82,7 +98,7 @@ public class Commande {
    * Calcule le montant total de la commande à partir du prix de vente des
    * pizzas et de leurs quantités.
    *
-   * @return montant total de la commande en euros
+   * @return montant total de la commande
    */
   public double calculerMontantTotal() {
     double total = 0.0;
@@ -95,7 +111,7 @@ public class Commande {
   /**
    * Retourne une vue non modifiable des pizzas commandées.
    *
-   * @return ensemble des pizzas avec leurs quantités
+   * @return map pizzas - quantités
    */
   public Map<Pizza, Integer> getPizzas() {
     return Collections.unmodifiableMap(pizzas);
@@ -104,7 +120,7 @@ public class Commande {
   /**
    * Retourne l'identifiant de la commande.
    *
-   * @return identifiant de la commande
+   * @return identifiant
    */
   public int getId() {
     return id;
@@ -113,7 +129,7 @@ public class Commande {
   /**
    * Retourne le client ayant passé la commande.
    *
-   * @return client associé à la commande
+   * @return le client
    */
   public Client getClient() {
     return client;
@@ -124,7 +140,7 @@ public class Commande {
    *
    * @return état de la commande
    */
-  public EtatCommande getEtat() {
+  public EtatCommande getStatut() {
     return etat;
   }
   

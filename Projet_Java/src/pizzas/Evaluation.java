@@ -119,7 +119,7 @@ public class Evaluation {
   
   
   /**
-   * output eval as string.
+   * methode qui affiche l'evaluation en tant que string
    * 
    */
   

@@ -5,7 +5,8 @@ package pizzas;
 /**
  * Exception levée lorsqu'il y a un problème avec la commande d'un client.
  * 
- * <p>Cette exception peut être utilisée pour signaler des situations telles que :
+ * <p>
+ * Cette exception peut être utilisée pour signaler des situations telles que :
  * <ul>
  * <li>Ajout de pizzas à une commande déjà validée</li>
  * <li>Modification de quantités dans une commande non modifiable</li>
@@ -52,7 +53,7 @@ public class CommandeException extends RuntimeException {
   
   
   /**
-   * Crée une nouvelle exception avec la cause spécifiée.
+   * crée une nouvelle exception avec la cause spécifiée.
    *
    * @param cause l'exception originale ayant causé cette exception
    */

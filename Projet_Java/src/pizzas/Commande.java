@@ -1,26 +1,16 @@
 package pizzas;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Représente une commande passée par un client. Une commande dispose d'un
- * identifiant unique, un client, un ensemble de pizzas avec leurs quantités, le
- * statut de la commande, les dates importantes et le montant total.
- *
- * <p>Une commande suit trois états :
- * </p>
- * <ul>
- * <li>creeee : la commande est en cours de création et peut être modifiée</li>
- * <li>validee : la commande a été validée et ne peut plus être modifiée</li>
- * <li>traitee : la commande a été traitée et livrée</li>
- * </ul>
+ * Représente une commande de pizzas passée par un client. Une commande est
+ * composée d'un ensemble de pizzas avec leurs quantités et possède un état qui
+ * évolue de créée à validée puis traitée.
  *
  * @author lenaic-love.hounleba
  */
-
 public class Commande {
   
   /** Identifiant unique de la commande. */
@@ -29,26 +19,14 @@ public class Commande {
   /** Client ayant passé la commande. */
   private final Client client;
   
-  /** Pizzas commandées avec leur quantité. */
+  /** Pizzas commandées avec leurs quantités. */
   private final Map<Pizza, Integer> pizzas;
   
-  /** Statut actuel de la commande. */
-  private EtatCommande statut;
-  
-  /** Date de création de la commande. */
-  private final LocalDateTime dateCreationCmd;
-  
-  /** Date de validation de la commande. */
-  private LocalDateTime dateValidationCmd;
-  
-  /** Date de traitement/livraison. */
-  private LocalDateTime dateLivraison;
-  
-  /** Montant total de la commande. */
-  private double montantTotal;
+  /** État actuel de la commande. */
+  private EtatCommande etat;
   
   /**
-   * Constructeur d'une commande.
+   * Construit une nouvelle commande associée à un client.
    *
    * @param id identifiant unique de la commande
    * @param client client ayant passé la commande
@@ -57,179 +35,101 @@ public class Commande {
     this.id = id;
     this.client = client;
     this.pizzas = new HashMap<>();
-    this.statut = EtatCommande.creee;
-    this.dateCreationCmd = LocalDateTime.now();
-    this.dateValidationCmd = null;
-    this.dateLivraison = null;
-    this.montantTotal = 0.0;
+    this.etat = EtatCommande.creee;
   }
   
-
-
-  // MÉTHODES -------------------------------------------------------------
-  
   /**
-   * Ajoute une pizza à la commande avec une quantité donnée. Si la pizza existe
-   * déjà, la quantité est cumulée.
+   * Ajoute une pizza à la commande en incrémentant sa quantité de 1.
    *
-   * @param pizza la pizza à ajouter
-   * @param quantite quantité désirée (>= 1)
+   * @param pizza pizza à ajouter à la commande
    * @throws CommandeException si la commande n'est plus modifiable
-   * @throws IllegalArgumentException si la quantité est <= 0
    */
-  public void ajouterPizza(Pizza pizza, int quantite) {
-    if (!estModifiable()) {
+  public void ajouterPizza(Pizza pizza) {
+    if (etat != EtatCommande.creee) {
       throw new CommandeException("La commande n'est plus modifiable.");
     }
-    if (quantite <= 0) {
-      throw new IllegalArgumentException("La quantité doit être >= 1.");
-    }
-    
-    pizzas.merge(pizza, quantite, Integer::sum);
-    recalculerMontantTotal();
+    pizzas.merge(pizza, 1, Integer::sum);
   }
   
   /**
-   * Change la quantité d'une pizza déjà présente dans la commande.
+   * Valide la commande. Une commande validée ne peut plus être modifiée par le
+   * client.
    *
-   * @param pizza la pizza concernée
-   * @param quantite nouvelle quantité (>= 0)
-   * @throws CommandeException si la commande n'est plus modifiable
-   * @throws IllegalArgumentException si la quantité est négative
-   */
-  public void changerQuantite(Pizza pizza, int quantite) {
-    if (!estModifiable()) {
-      throw new CommandeException("La commande n'est plus modifiable.");
-    }
-    if (quantite < 0) {
-      throw new IllegalArgumentException("Quantité négative interdite.");
-    }
-    
-    if (quantite == 0) {
-      pizzas.remove(pizza);
-    } else {
-      pizzas.put(pizza, quantite);
-    }
-    recalculerMontantTotal();
-  }
-  
-  
-  /**
-   * Vérifie si la commande est encore modifiable.
-   *
-   * @return true si le statut est 'creee', false sinon
-   */
-  public boolean estModifiable() {
-    return statut == EtatCommande.creee;
-  }
-  
-  
-  /**
-   * Valide la commande. La commande ne peut plus être modifiée après
-   * validation.
-   *
-   * @throws CommandeException si la commande n'était pas en création
+   * @throws CommandeException si la commande n'est pas en cours de création
    */
   public void valider() {
-    if (statut != EtatCommande.creee) {
+    if (etat != EtatCommande.creee) {
       throw new CommandeException("La commande ne peut pas être validée.");
     }
-    statut = EtatCommande.validee;
-    dateValidationCmd = LocalDateTime.now();
-  }
-  
-  
-  /**
-   * Annule une commande en cours de création.
-   *
-   * @throws CommandeException si la commande a déjà été validée
-   */
-  public void annuler() {
-    if (statut != EtatCommande.creee) {
-      throw new CommandeException("Impossible d'annuler une commande validée.");
-    }
-    pizzas.clear();
-    montantTotal = 0.0;
-    statut = EtatCommande.traitee;
+    etat = EtatCommande.validee;
   }
   
   /**
-   * Marque la commande comme traitée/livrée.
+   * Marque la commande comme traitée. Cette opération est effectuée par le
+   * pizzaïolo.
    *
    * @throws CommandeException si la commande n'est pas validée
    */
   public void traiter() {
-    if (statut != EtatCommande.validee) {
+    if (etat != EtatCommande.validee) {
       throw new CommandeException(
           "Seules les commandes validées peuvent être traitées.");
     }
-    statut = EtatCommande.traitee;
-    dateLivraison = LocalDateTime.now();
+    etat = EtatCommande.traitee;
   }
   
   /**
-   * Recalcule le montant total de la commande. Il est appelé à chaque
-   * modification de pizza/quantité.
-   */
-  private void recalculerMontantTotal() {
-    double total = 0;
-    for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
-      Pizza pizza = entry.getKey();
-      int qte = entry.getValue();
-      total += pizza.getPrixPizza(pizza) * qte;
-    }
-    montantTotal = total;
-  }
-  
-  /**
-   * Retourne le montant total de la commande.
+   * Calcule le montant total de la commande à partir du prix de vente des
+   * pizzas et de leurs quantités.
    *
-   * @return le montant total en euros
+   * @return montant total de la commande en euros
    */
-  public double getMontantTotal() {
-    return montantTotal;
+  public double calculerMontantTotal() {
+    double total = 0.0;
+    for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
+      total += entry.getKey().getPrixVente() * entry.getValue();
+    }
+    return total;
   }
-  
-
-  // GETTERS ----------------------------------------------------------------
-  
-  public int getId() {
-    return id;
-  }
-  
-  public Client getClient() {
-    return client;
-  }
-  
   
   /**
    * Retourne une vue non modifiable des pizzas commandées.
    *
-   * @return map pizzas-quantités
+   * @return ensemble des pizzas avec leurs quantités
    */
   public Map<Pizza, Integer> getPizzas() {
     return Collections.unmodifiableMap(pizzas);
   }
   
-  public EtatCommande getStatut() {
-    return statut;
+  /**
+   * Retourne l'identifiant de la commande.
+   *
+   * @return identifiant de la commande
+   */
+  public int getId() {
+    return id;
   }
   
-  public LocalDateTime getDateCreationCmd() {
-    return dateCreationCmd;
+  /**
+   * Retourne le client ayant passé la commande.
+   *
+   * @return client associé à la commande
+   */
+  public Client getClient() {
+    return client;
   }
   
-  public LocalDateTime getDateValidationCmd() {
-    return dateValidationCmd;
-  }
-  
-  public LocalDateTime getDateLivraison() {
-    return dateLivraison;
+  /**
+   * Retourne l'état actuel de la commande.
+   *
+   * @return état de la commande
+   */
+  public EtatCommande getEtat() {
+    return etat;
   }
   
   @Override
   public String toString() {
-    return "Commande #" + id + " - " + statut + " - total: " + montantTotal
-        + "€";
+    return "Commande #" + id + " (" + etat + ")";
   }
 }

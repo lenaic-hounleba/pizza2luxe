@@ -1,11 +1,11 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import pizzas.Client;
 import pizzas.Commande;
 import pizzas.CommandeException;
@@ -13,11 +13,8 @@ import pizzas.Pizza;
 import pizzas.TypePizza;
 
 /**
- * Tests JUnit de la classe {@link pizzas.Commande Commande}.
+ * Tests unitaires de la classe {@link pizzas.Commande}.
  *
- * Teste l'ajout de pizzas, le calcul du total et les exceptions dans les cas où
- * la commande est clôturée.
- * 
  * @author lenaic-love.hounleba
  */
 class TestCommande {
@@ -25,89 +22,62 @@ class TestCommande {
   private Commande commande;
   private Pizza pizza1;
   private Pizza pizza2;
-  private Pizza pizza3;
-  private Client client1 = new Client("paulkun@gmail.com", "123456", "Paul", "Kun", "Rue de Georges", 16);
+  private Client client;
   
-  /**
-   * Initialise une commande et quelques pizzas de test.
-   *
-   * @throws Exception jamais levée ici
-   */
   @BeforeEach
-  void setUp() throws Exception {
+  void setUp() {
+    client =
+        new Client("paul@gmail.com", "1234", "Paul", "Kun", "Rue de Brest", 20);
     
-    commande = new Commande(150, client1); // numéro quelconque
+    commande = new Commande(1, client);
     
     pizza1 = new Pizza("Regina", TypePizza.Viande);
     pizza2 = new Pizza("Margarita", TypePizza.Vegetarienne);
-    pizza3 = new Pizza("Olda", TypePizza.Regionale);
     
-    // On force les prix vu que Pizza actuelle ne marche pas correctement
-    pizza1.prixVente = 12.0;
-    pizza2.prixVente = 10.0;
+    pizza1.setPrixVente(12.0);
+    pizza2.setPrixVente(10.0);
   }
   
   /**
-   * Test : ajout d'une seule pizza.
-   *
-   * @throws Exception ne doit pas être levée
+   * Test de l'ajout simple d'une pizza.
    */
   @Test
-  void testAjoutPizzaSimple() throws Exception {
-    commande.ajouterPizza(pizza1, 2); // 2 Regina
+  void testAjoutPizza() {
+    commande.ajouterPizza(pizza1);
     assertEquals(1, commande.getPizzas().size());
   }
   
   /**
-   * Test du calcul correct du total.
-   *
-   * @throws Exception ne doit pas être levée
+   * Test du cumul des quantités pour une même pizza.
    */
   @Test
-  void testCalculTotal() throws Exception {
-    commande.ajouterPizza(pizza1, 2); // 2 × 12 = 24
-    commande.ajouterPizza(pizza2, 1); // 1 × 10 = 10
+  void testCumulQuantite() {
+    commande.ajouterPizza(pizza1);
+    commande.ajouterPizza(pizza1);
     
-    double total = commande.getMontantTotal();
-    assertEquals(34.0, total);
+    assertEquals(2, commande.getPizzas().get(pizza1));
   }
   
   /**
-   * Vérifie qu'ajouter une pizza avec une quantité <= 0 déclenche bien une
-   * exception CommandeException.
+   * Test du calcul du montant total.
    */
   @Test
-  void testQuantiteInvalide() {
-    assertThrows(CommandeException.class, () -> {
-      commande.ajouterPizza(pizza1, -1);
-    });
+  void testCalculMontant() {
+    commande.ajouterPizza(pizza1); // 12
+    commande.ajouterPizza(pizza2); // 10
+    
+    assertEquals(22.0, commande.calculerMontantTotal());
   }
   
   /**
-   * Vérifie qu'on ne peut plus modifier la commande après l'avoir clôturée.
-   *
-   * @throws Exception ne doit pas être levée (avant la clôture)
+   * Vérifie qu'une commande validée ne peut plus être modifiée.
    */
   @Test
-  void testModificationApresCloture() throws Exception {
-    commande.ajouterPizza(pizza1, 1);
-    commande.annuler();
+  void testAjoutApresValidation() {
+    commande.valider();
     
     assertThrows(CommandeException.class, () -> {
-      commande.ajouterPizza(pizza2, 1);
+      commande.ajouterPizza(pizza1);
     });
-  }
-  
-  /**
-   * Vérifie que l'ajout cumulé de pizzas du même type fonctionne : on ajoute
-   * deux fois la même pizza, les quantités se cumulent.
-   */
-  @Test
-  void testCumulQuantites() throws Exception {
-    commande.ajouterPizza(pizza1, 1);
-    commande.ajouterPizza(pizza1, 3);
-    
-    // Quantité totale = 4
-    assertEquals(4, commande.getPizzas().get(pizza1).intValue());
   }
 }

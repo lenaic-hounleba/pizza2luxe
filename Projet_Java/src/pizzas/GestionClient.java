@@ -13,22 +13,22 @@ import java.util.Set;
  * @author Dorian Fleurquin
  */
 public class GestionClient implements InterClient {
-
+  
   /** Données partagées de la pizzeria. */
   private final PizzeriaData data;
-
+  
   /** Client actuellement connecté. */
   private Client clientConnecte;
-
+  
   /** Filtre sur le type de pizza. */
   private TypePizza filtreType;
-
+  
   /** Filtre sur les ingrédients. */
   private Set<String> filtreIngredients;
-
+  
   /** Filtre sur le prix maximum. */
   private Double filtrePrixMax;
-
+  
   /**
    * Constructeur du service client.
    *
@@ -41,61 +41,55 @@ public class GestionClient implements InterClient {
     this.filtreIngredients = null;
     this.filtrePrixMax = null;
   }
-
+  
   /**
    * Inscription d'un nouveau client.
    *
-   * L'adresse email doit être unique. L'inscription échoue si l'email ou le
-   * mot de passe est vide, si les informations personnelles sont invalides
-   * ou si l'email n'est pas correctement formé.
+   * L'adresse email doit être unique. L'inscription échoue si l'email ou le mot
+   * de passe est vide, si les informations personnelles sont invalides ou si
+   * l'email n'est pas correctement formé.
    *
    * @param email l'adresse email du client
    * @param mdp le mot de passe du client
    * @param info les informations personnelles du client
    * @return 0 si l'inscription s'est bien déroulée, -1 si l'email est déjà
    *         utilisé, -2 si l'email ou le mot de passe est vide, -3 si les
-   *         informations personnelles sont invalides, -4 si l'email n'est
-   *         pas bien formé
+   *         informations personnelles sont invalides, -4 si l'email n'est pas
+   *         bien formé
    */
   @Override
   public int inscription(String email, String mdp,
-                         InformationPersonnelle info) {
-
-    if (email == null || email.isEmpty()
-            || mdp == null || mdp.isEmpty()) {
+      InformationPersonnelle info) {
+    
+    if (email == null || email.isEmpty() || mdp == null || mdp.isEmpty()) {
       return -2;
     }
-
+    
     if (!email.contains("@") || !email.contains(".")) {
       return -4;
     }
-
+    
     if (info == null) {
       return -3;
     }
-
+    
     if (data.clientsByEmail.containsKey(email)) {
       return -1;
     }
-
-    Client client = new Client(
-            email,
-            mdp,
-            info.getNom(),
-            info.getPrenom(),
-            info.getAdresse(),
-            info.getAge());
-
+    
+    Client client = new Client(email, mdp, info.getNom(), info.getPrenom(),
+        info.getAdresse(), info.getAge());
+    
     data.clientsByEmail.put(email, client);
-
+    
     return 0;
   }
-
+  
   /**
    * Connexion d'un client.
    *
-   * Le couple email/mot de passe doit correspondre à un client inscrit.
-   * Une fois connecté, le client peut passer des commandes.
+   * Le couple email/mot de passe doit correspondre à un client inscrit. Une
+   * fois connecté, le client peut passer des commandes.
    *
    * @param email l'adresse email du client
    * @param mdp le mot de passe du client
@@ -103,24 +97,24 @@ public class GestionClient implements InterClient {
    */
   @Override
   public boolean connexion(String email, String mdp) {
-
+    
     if (email == null || mdp == null) {
       return false;
     }
-
+    
     Client client = data.clientsByEmail.get(email);
     if (client == null) {
       return false;
     }
-
+    
     if (!client.verifierMotDePasse(mdp)) {
       return false;
     }
-
+    
     clientConnecte = client;
     return true;
   }
-
+  
   /**
    * Déconnecte le client actuellement connecté.
    *
@@ -128,14 +122,14 @@ public class GestionClient implements InterClient {
    */
   @Override
   public void deconnexion() throws NonConnecteException {
-
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     clientConnecte = null;
   }
-
+  
   /**
    * Crée une nouvelle commande pour le client actuellement connecté.
    *
@@ -144,21 +138,19 @@ public class GestionClient implements InterClient {
    */
   @Override
   public Commande debuterCommande() throws NonConnecteException {
-
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
-    Commande cmd = new Commande(
-            data.nextCommandeId,
-            clientConnecte);
-
+    
+    Commande cmd = new Commande(data.nextCommandeId, clientConnecte);
+    
     data.nextCommandeId++;
     data.commandes.add(cmd);
-
+    
     return cmd;
   }
-
+  
   /**
    * Ajoute une certaine quantité d'une pizza à une commande.
    *
@@ -170,32 +162,32 @@ public class GestionClient implements InterClient {
    */
   @Override
   public void ajouterPizza(Pizza pizza, int nombre, Commande cmd)
-          throws NonConnecteException, CommandeException {
-
+      throws NonConnecteException, CommandeException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     if (cmd == null) {
       throw new CommandeException("Commande invalide.");
     }
-
+    
     if (cmd.getClient() != clientConnecte) {
       throw new CommandeException(
-              "La commande n'appartient pas au client connecté.");
+          "La commande n'appartient pas au client connecté.");
     }
-
+    
     if (!data.commandes.contains(cmd)) {
       throw new CommandeException("Commande inconnue.");
     }
-
+    
     if (!data.pizzasByName.containsValue(pizza)) {
       throw new CommandeException("Pizza invalide.");
     }
-
+    
     cmd.ajouterPizza(pizza, nombre);
   }
-
+  
   /**
    * Valide une commande en cours.
    *
@@ -207,33 +199,32 @@ public class GestionClient implements InterClient {
    */
   @Override
   public void validerCommande(Commande cmd)
-          throws NonConnecteException, CommandeException {
-
+      throws NonConnecteException, CommandeException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     if (cmd == null) {
       throw new CommandeException("Commande invalide.");
     }
-
+    
     if (cmd.getClient() != clientConnecte) {
       throw new CommandeException(
-              "La commande n'appartient pas au client connecté.");
+          "La commande n'appartient pas au client connecté.");
     }
-
+    
     if (!data.commandes.contains(cmd)) {
       throw new CommandeException("Commande inconnue.");
     }
-
+    
     if (!cmd.estModifiable()) {
-      throw new CommandeException(
-              "La commande n'est pas modifiable.");
+      throw new CommandeException("La commande n'est pas modifiable.");
     }
-
+    
     cmd.valider();
   }
-
+  
   /**
    * Annule une commande en cours.
    *
@@ -245,62 +236,60 @@ public class GestionClient implements InterClient {
    */
   @Override
   public void annulerCommande(Commande cmd)
-          throws NonConnecteException, CommandeException {
-
+      throws NonConnecteException, CommandeException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     if (cmd == null) {
       throw new CommandeException("Commande invalide.");
     }
-
+    
     if (cmd.getClient() != clientConnecte) {
       throw new CommandeException(
-              "La commande n'appartient pas au client connecté.");
+          "La commande n'appartient pas au client connecté.");
     }
-
+    
     if (!data.commandes.contains(cmd)) {
       throw new CommandeException("Commande inconnue.");
     }
-
+    
     if (!cmd.estModifiable()) {
-      throw new CommandeException(
-              "Impossible d'annuler une commande validée.");
+      throw new CommandeException("Impossible d'annuler une commande validée.");
     }
-
+    
     data.commandes.remove(cmd);
   }
-
+  
   /**
    * Renvoie la liste des commandes en cours du client connecté.
    *
-   * Les commandes retournées sont celles en cours de création, ordonnées
-   * par date de création (de la plus ancienne à la plus récente).
+   * Les commandes retournées sont celles en cours de création, ordonnées par
+   * date de création (de la plus ancienne à la plus récente).
    *
    * @return la liste des commandes en cours
    * @throws NonConnecteException si aucun client n'est connecté
    */
   @Override
-  public List<Commande> getCommandesEncours()
-          throws NonConnecteException {
-
+  public List<Commande> getCommandesEncours() throws NonConnecteException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     List<Commande> result = new ArrayList<>();
-
+    
     for (Commande cmd : data.commandes) {
       if (cmd.getClient() == clientConnecte
-              && cmd.getStatut() == EtatCommande.creee) {
+          && cmd.getStatut() == EtatCommande.creee) {
         result.add(cmd);
       }
     }
-
+    
     return result;
   }
-
+  
   /**
    * Renvoie la liste des commandes passées du client connecté.
    *
@@ -311,25 +300,24 @@ public class GestionClient implements InterClient {
    * @throws NonConnecteException si aucun client n'est connecté
    */
   @Override
-  public List<Commande> getCommandePassees()
-          throws NonConnecteException {
-
+  public List<Commande> getCommandePassees() throws NonConnecteException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
+    
     List<Commande> result = new ArrayList<>();
-
+    
     for (Commande cmd : data.commandes) {
       if (cmd.getClient() == clientConnecte
-              && cmd.getStatut() != EtatCommande.creee) {
+          && cmd.getStatut() != EtatCommande.creee) {
         result.add(cmd);
       }
     }
-
+    
     return result;
   }
-
+  
   /**
    * Renvoie l'ensemble des pizzas en vente.
    *
@@ -339,7 +327,7 @@ public class GestionClient implements InterClient {
   public Set<Pizza> getPizzas() {
     return new HashSet<>(data.pizzasByName.values());
   }
-
+  
   /**
    * Ajoute un filtre sur le type de pizza.
    *
@@ -351,33 +339,33 @@ public class GestionClient implements InterClient {
       filtreType = type;
     }
   }
-
+  
   /**
    * Ajoute un filtre sur les ingrédients.
    *
-   * Les pizzas conservées doivent contenir tous les ingrédients fournis.
-   * Les ingrédients invalides sont ignorés.
+   * Les pizzas conservées doivent contenir tous les ingrédients fournis. Les
+   * ingrédients invalides sont ignorés.
    *
    * @param ingredients les noms des ingrédients à filtrer
    */
   @Override
   public void ajouterFiltre(String... ingredients) {
-
+    
     if (ingredients == null) {
       return;
     }
-
+    
     if (filtreIngredients == null) {
       filtreIngredients = new HashSet<>();
     }
-
+    
     for (String ing : ingredients) {
       if (ing != null && !ing.isEmpty()) {
         filtreIngredients.add(ing.toLowerCase());
       }
     }
   }
-
+  
   /**
    * Ajoute un filtre sur le prix maximum des pizzas.
    *
@@ -389,7 +377,7 @@ public class GestionClient implements InterClient {
       filtrePrixMax = prixMaximum;
     }
   }
-
+  
   /**
    * Sélectionne les pizzas qui valident tous les filtres définis.
    *
@@ -397,50 +385,49 @@ public class GestionClient implements InterClient {
    */
   @Override
   public Set<Pizza> selectionPizzaFiltres() {
-
+    
     Set<Pizza> result = new HashSet<>();
-
+    
     for (Pizza pizza : data.pizzasByName.values()) {
-
+      
       if (filtreType != null && pizza.getType() != filtreType) {
         continue;
       }
-
-      if (filtrePrixMax != null
-              && pizza.getPrixPizza() > filtrePrixMax) {
+      
+      if (filtrePrixMax != null && pizza.getPrixPizza() > filtrePrixMax) {
         continue;
       }
-
+      
       if (filtreIngredients != null) {
         boolean ok = true;
-
+        
         for (String ing : filtreIngredients) {
           boolean found = false;
-
+          
           for (Ingredient i : pizza.getIngredients()) {
             if (i.getNom().equalsIgnoreCase(ing)) {
               found = true;
               break;
             }
           }
-
+          
           if (!found) {
             ok = false;
             break;
           }
         }
-
+        
         if (!ok) {
           continue;
         }
       }
-
+      
       result.add(pizza);
     }
-
+    
     return result;
   }
-
+  
   /**
    * Supprime tous les filtres définis.
    */
@@ -450,7 +437,7 @@ public class GestionClient implements InterClient {
     filtreIngredients = null;
     filtrePrixMax = null;
   }
-
+  
   /**
    * Retourne l'ensemble des évaluations d'une pizza.
    *
@@ -459,47 +446,46 @@ public class GestionClient implements InterClient {
    */
   @Override
   public Set<Evaluation> getEvaluationsPizza(Pizza pizza) {
-
-    if (pizza == null
-            || !data.pizzasByName.containsValue(pizza)) {
+    
+    if (pizza == null || !data.pizzasByName.containsValue(pizza)) {
       return null;
     }
-
+    
     Set<Evaluation> evals = data.evaluationsParPizza.get(pizza);
     if (evals == null) {
       return new HashSet<>();
     }
-
+    
     return new HashSet<>(evals);
   }
-
+  
   /**
    * Retourne la note moyenne des évaluations d'une pizza.
    *
    * @param pizza la pizza dont on veut la note moyenne
-   * @return la note moyenne, -1 si aucune évaluation, -2 si la pizza est invalide
+   * @return la note moyenne, -1 si aucune évaluation, -2 si la pizza est
+   *         invalide
    */
   @Override
   public double getNoteMoyenne(Pizza pizza) {
-
-    if (pizza == null
-            || !data.pizzasByName.containsValue(pizza)) {
+    
+    if (pizza == null || !data.pizzasByName.containsValue(pizza)) {
       return -2;
     }
-
+    
     Set<Evaluation> evals = data.evaluationsParPizza.get(pizza);
     if (evals == null || evals.isEmpty()) {
       return -1;
     }
-
+    
     int somme = 0;
     for (Evaluation e : evals) {
       somme += e.getNote();
     }
-
+    
     return (double) somme / evals.size();
   }
-
+  
   /**
    * Ajoute une évaluation à une pizza de la part du client connecté.
    *
@@ -511,62 +497,54 @@ public class GestionClient implements InterClient {
    * @throws CommandeException si le client n'a jamais commandé cette pizza
    */
   @Override
-  public boolean ajouterEvaluation(Pizza pizza, int note,
-                                   String commentaire)
-          throws NonConnecteException, CommandeException {
-
+  public boolean ajouterEvaluation(Pizza pizza, int note, String commentaire)
+      throws NonConnecteException, CommandeException {
+    
     if (clientConnecte == null) {
       throw new NonConnecteException();
     }
-
-    if (pizza == null
-            || !data.pizzasByName.containsValue(pizza)) {
+    
+    if (pizza == null || !data.pizzasByName.containsValue(pizza)) {
       return false;
     }
-
+    
     if (note < 0 || note > 5) {
       return false;
     }
-
+    
     boolean aCommande = false;
-
+    
     for (Commande cmd : data.commandes) {
       if (cmd.getClient() == clientConnecte
-              && cmd.getStatut() == EtatCommande.traitee
-              && cmd.getPizzas().containsKey(pizza)) {
+          && cmd.getStatut() == EtatCommande.traitee
+          && cmd.getPizzas().containsKey(pizza)) {
         aCommande = true;
         break;
       }
     }
-
+    
     if (!aCommande) {
-      throw new CommandeException(
-              "Le client n'a jamais commandé cette pizza.");
+      throw new CommandeException("Le client n'a jamais commandé cette pizza.");
     }
-
-    Set<Evaluation> evals =
-            data.evaluationsParPizza.get(pizza);
-
+    
+    Set<Evaluation> evals = data.evaluationsParPizza.get(pizza);
+    
     if (evals == null) {
       evals = new HashSet<>();
       data.evaluationsParPizza.put(pizza, evals);
     }
-
+    
     for (Evaluation e : evals) {
-      if (e.getClient()
-              .equals(clientConnecte.getInformationPersonnelle())) {
+      if (e.getClient().equals(clientConnecte.getInformationPersonnelle())) {
         return false;
       }
     }
-
-    Evaluation eval = new Evaluation(
-            clientConnecte.getInformationPersonnelle(),
-            pizza,
-            note,
-            commentaire);
-
+    
+    Evaluation eval = new Evaluation(clientConnecte.getInformationPersonnelle(),
+        pizza, note, commentaire);
+    
     evals.add(eval);
     return true;
   }
-
+  
 }

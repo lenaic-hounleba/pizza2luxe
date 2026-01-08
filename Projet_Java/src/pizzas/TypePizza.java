@@ -22,6 +22,6 @@ public enum TypePizza {
    * Saint-Jacques, landaise au canard, savoyarde au reblochon...
    */
   Regionale,;
-
- 
+  
+  
 }

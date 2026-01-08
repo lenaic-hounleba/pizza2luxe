@@ -23,7 +23,7 @@ public class Commande implements java.io.Serializable {
   /** Identifiant unique de la commande. */
   private final int id;
   
-  /** Client ayant passé la commande. */
+  /** client ayant passé la commande. */
   private final Client client;
   
   /** Pizzas commandées avec leurs quantités. */
@@ -35,7 +35,7 @@ public class Commande implements java.io.Serializable {
   /**
    * Construit une nouvelle commande associée à un client.
    *
-   * @param id identifiant unique de la commande
+   * @param id identifiant de la commande
    * @param client client ayant passé la commande
    */
   public Commande(int id, Client client) {
@@ -46,11 +46,11 @@ public class Commande implements java.io.Serializable {
   }
   
   /**
-   * Ajoute une certaine quantité d'une pizza à la commande. Si la pizza est
-   * déjà présente, la quantité est cumulée.
+   * Ajoute une quantité donnée d'une pizza à la commande. Si la pizza est déjà
+   * présente, sa quantité est cumulée.
    *
    * @param pizza la pizza à ajouter
-   * @param nombre la quantité à ajouter (doit être strictement positive)
+   * @param nombre la quantité à ajouter qui doit être strictement positive
    * @throws CommandeException si la commande n'est plus modifiable
    */
   public void ajouterPizza(Pizza pizza, int nombre) {
@@ -86,7 +86,7 @@ public class Commande implements java.io.Serializable {
   }
   
   /**
-   * Marque la commande comme traitée. Cette opération est réalisée par le
+   * marque la commande comme traitée. Cette opération est réalisée par le
    * pizzaïolo.
    *
    * @throws CommandeException si la commande n'est pas validée
@@ -100,8 +100,8 @@ public class Commande implements java.io.Serializable {
   }
   
   /**
-   * Calcule le montant total de la commande à partir du prix de vente des
-   * pizzas et de leurs quantités.
+   * Calcule le montant total de la commnde avec le prix de vente des pizzas et
+   * leurs quantités.
    *
    * @return montant total de la commande
    */
@@ -123,7 +123,7 @@ public class Commande implements java.io.Serializable {
   }
   
   /**
-   * Retourne l'identifiant de la commande.
+   * retourne l'identifiant de la commande
    *
    * @return identifiant
    */

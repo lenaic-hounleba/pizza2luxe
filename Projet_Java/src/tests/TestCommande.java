@@ -41,7 +41,7 @@ class TestCommande {
   }
   
   /**
-   * Test de l'ajout d'une pizza avec une quantité.
+   * Test de l'ajout d'une pizza avec une quantité
    */
   @Test
   void testAjoutPizza() {
@@ -63,7 +63,7 @@ class TestCommande {
   }
   
   /**
-   * Test du calcul correct du montant total.
+   * Test du calcul correct du montant total
    */
   @Test
   void testCalculMontantTotal() {
@@ -74,7 +74,7 @@ class TestCommande {
   }
   
   /**
-   * Vérifie que la commande est modifiable lorsqu'elle est créée.
+   * Vérifie que la commande est modifiable lorsqu'elle est créée;
    */
   @Test
   void testCommandeModifiable() {

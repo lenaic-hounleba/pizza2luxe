@@ -12,7 +12,8 @@ import pizzas.PizzeriaData;
  * Implémentation de la sauvegarde des données de la pizzeria via la
  * sérialisation Java.
  *
- * Cette classe sauvegarde et recharge l'objet PizzeriaData dans un fichier.
+ * Cette classe sauvegarde et recharge l'objet PizzeriaData dans un fichier à la
+ * fermeture et à l'ouverture de la fenetre respectivement.
  *
  * @author lenaic-love.hounleba
  */
@@ -31,7 +32,7 @@ public class SauvegardePizzeria implements InterSauvegarde {
   }
   
   /**
-   * Sauvegarde toutes les données de la pizzeria dans un fichier.
+   * Sauvegarde toutes les données de la pizzeria dans le fichier.
    *
    * @param nomFichier le nom du fichier de sauvegarde
    * @throws IOException en cas de problème d'écriture
@@ -46,7 +47,7 @@ public class SauvegardePizzeria implements InterSauvegarde {
   }
   
   /**
-   * Charge les données de la pizzeria depuis un fichier.
+   * Charge les données de la pizzeria depuis le fichier.
    *
    * @param nomFichier le nom du fichier de sauvegarde
    * @throws IOException en cas de problème de lecture

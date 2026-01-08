@@ -13,7 +13,12 @@ import java.util.Map;
  *
  * @author lenaic-love.hounleba
  */
-public class Commande {
+public class Commande implements java.io.Serializable {
+  
+  /**
+   * Identifiant de sérialisation.
+   */
+  private static final long serialVersionUID = 1L;
   
   /** Identifiant unique de la commande. */
   private final int id;

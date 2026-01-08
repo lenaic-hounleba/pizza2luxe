@@ -8,17 +8,23 @@ package pizzas;
  *
  * @author Dorian Fleurquin
  */
-public class Client {
-
+public class Client implements java.io.Serializable {
+  
+  
+  /**
+   * Identifiant de sérialisation.
+   */
+  private static final long serialVersionUID = 1L;
+  
   /** Informations personnelles du client. */
   private final InformationPersonnelle info;
-
+  
   /** Adresse email du client. */
   private final String email;
-
+  
   /** Mot de passe du client. */
   private final String password;
-
+  
   /**
    * Constructeur d'un client.
    *
@@ -30,12 +36,12 @@ public class Client {
    * @param age âge du client
    */
   public Client(String email, String password, String nom, String prenom,
-                String adresse, int age) {
+      String adresse, int age) {
     this.email = email;
     this.password = password;
     this.info = new InformationPersonnelle(nom, prenom, adresse, age);
   }
-
+  
   /**
    * Retourne l'adresse email du client.
    *
@@ -44,7 +50,7 @@ public class Client {
   public String getEmail() {
     return email;
   }
-
+  
   /**
    * Retourne les informations personnelles du client.
    *
@@ -53,7 +59,7 @@ public class Client {
   public InformationPersonnelle getInformationPersonnelle() {
     return info;
   }
-
+  
   /**
    * Vérifie si le mot de passe correspond à celui du client.
    *

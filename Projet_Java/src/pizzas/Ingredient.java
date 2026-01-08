@@ -6,7 +6,15 @@ package pizzas;
  *
  * @author diamilatou-assura.diallo
  */
-public class Ingredient {
+public class Ingredient implements java.io.Serializable {
+  
+  
+  /**
+   * Identifiant de sérialisation.
+   */
+  private static final long serialVersionUID = 1L;
+  
+  
   String nom;
   double prix;
   

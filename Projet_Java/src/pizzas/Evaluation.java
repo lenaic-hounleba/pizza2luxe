@@ -8,20 +8,26 @@ package pizzas;
  *
  * @author Dorian Fleurquin
  */
-public class Evaluation {
-
+public class Evaluation implements java.io.Serializable {
+  
+  
+  /**
+   * Identifiant de sérialisation.
+   */
+  private static final long serialVersionUID = 1L;
+  
   /** Client qui laisse l'évaluation. */
   private final InformationPersonnelle client;
-
+  
   /** Pizza évaluée. */
   private final Pizza pizza;
-
+  
   /** Note attribuée (0 à 5). */
   private final int note;
-
+  
   /** Commentaire associé (jamais null). */
   private final String commentaire;
-
+  
   /**
    * Constructeur d'une évaluation.
    *
@@ -31,18 +37,18 @@ public class Evaluation {
    * @param commentaire le commentaire (peut être null)
    */
   public Evaluation(InformationPersonnelle client, Pizza pizza, int note,
-                    String commentaire) {
+      String commentaire) {
     this.client = client;
     this.pizza = pizza;
     this.note = corrigerNote(note);
-
+    
     if (commentaire == null) {
       this.commentaire = "";
     } else {
       this.commentaire = commentaire;
     }
   }
-
+  
   /**
    * Constructeur d'une évaluation sans commentaire.
    *
@@ -53,7 +59,7 @@ public class Evaluation {
   public Evaluation(InformationPersonnelle client, Pizza pizza, int note) {
     this(client, pizza, note, "");
   }
-
+  
   /**
    * Retourne le client qui a laissé l'évaluation.
    *
@@ -62,7 +68,7 @@ public class Evaluation {
   public InformationPersonnelle getClient() {
     return client;
   }
-
+  
   /**
    * Retourne la pizza évaluée.
    *
@@ -71,7 +77,7 @@ public class Evaluation {
   public Pizza getPizza() {
     return pizza;
   }
-
+  
   /**
    * Retourne la note attribuée.
    *
@@ -80,7 +86,7 @@ public class Evaluation {
   public int getNote() {
     return note;
   }
-
+  
   /**
    * Retourne le commentaire.
    *
@@ -89,7 +95,7 @@ public class Evaluation {
   public String getCommentaire() {
     return commentaire;
   }
-
+  
   /**
    * Corrige une note pour la ramener dans l'intervalle [0, 5].
    *
@@ -105,10 +111,10 @@ public class Evaluation {
     }
     return note;
   }
-
+  
   @Override
   public String toString() {
     return "Evaluation par " + client + " de " + pizza + " note:" + note
-            + " commentaire:" + commentaire;
+        + " commentaire:" + commentaire;
   }
 }

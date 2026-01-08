@@ -9,7 +9,8 @@ import java.io.ObjectOutputStream;
 import pizzas.PizzeriaData;
 
 /**
- * Sauvegarde des données de la pizzeria via la sérialisation Java.
+ * Implémentation de la sauvegarde des données de la pizzeria via la
+ * sérialisation Java.
  *
  * Cette classe sauvegarde et recharge l'objet PizzeriaData dans un fichier à la
  * fermeture et à l'ouverture de la fenetre respectivement.
@@ -22,7 +23,7 @@ public class SauvegardePizzeria implements InterSauvegarde {
   private PizzeriaData data;
   
   /**
-   * Constructeur qui construit un gestionnaire de sauvegarde.
+   * Construit un gestionnaire de sauvegarde.
    *
    * @param data les données de la pizzeria
    */

@@ -2,7 +2,6 @@ package pizzas;
 
 /**
  * Classe représentant un client de la pizzeria.
- *
  * Un client est défini par une adresse email, un mot de passe et des
  * informations personnelles.
  *

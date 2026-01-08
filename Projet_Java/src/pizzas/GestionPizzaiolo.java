@@ -15,7 +15,6 @@ import java.util.Set;
 
 /**
  * Classe qui gère les traitements liés au pizzaïolo.
- *
  * Cette classe implémente les services définis par l'interface InterPizzaiolo.
  * 
  * @author Dorian Fleurquin

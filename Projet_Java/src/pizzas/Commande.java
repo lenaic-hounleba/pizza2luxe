@@ -7,7 +7,6 @@ import java.util.Map;
 /**
  * Représente une commande de pizzas passée par un client. Une commande possède
  * un état qui évolue de créée à validée puis traitée.
- *
  * Une commande créée peut être modifiée par le client. Une commande validée ou
  * traitée n'est plus modifiable.
  *

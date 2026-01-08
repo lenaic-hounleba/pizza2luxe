@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Classe qui gère les traitements liés au client.
- *
- * Cette classe implémente les services définis par l'interface InterClient.
+ * Classe qui gère les traitements liés au client. Cette classe implémente les
+ * services définis par l'interface InterClient.
+ * 
  *
  * @author Dorian Fleurquin
  */
@@ -43,11 +43,10 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Inscription d'un nouveau client.
-   *
-   * L'adresse email doit être unique. L'inscription échoue si l'email ou le mot
-   * de passe est vide, si les informations personnelles sont invalides ou si
-   * l'email n'est pas correctement formé.
+   * Inscription d'un nouveau client. L'adresse email doit être unique.
+   * L'inscription échoue si l'email ou le mot de passe est vide, si les
+   * informations personnelles sont invalides ou si l'email n'est pas
+   * correctement formé.
    *
    * @param email l'adresse email du client
    * @param mdp le mot de passe du client
@@ -86,10 +85,8 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Connexion d'un client.
-   *
-   * Le couple email/mot de passe doit correspondre à un client inscrit. Une
-   * fois connecté, le client peut passer des commandes.
+   * Connexion d'un client. Le couple email/mot de passe doit correspondre à un
+   * client inscrit. Une fois connecté, le client peut passer des commandes.
    *
    * @param email l'adresse email du client
    * @param mdp le mot de passe du client
@@ -189,9 +186,8 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Valide une commande en cours.
-   *
-   * Une fois validée, la commande ne peut plus être modifiée.
+   * Valide une commande en cours. Une fois validée, la commande ne peut plus
+   * être modifiée.
    *
    * @param cmd la commande à valider
    * @throws NonConnecteException si aucun client n'est connecté
@@ -226,9 +222,7 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Annule une commande en cours.
-   *
-   * Une commande annulée n'existe plus.
+   * Annule une commande en cours. Une commande annulée n'existe plus.
    *
    * @param cmd la commande à annuler
    * @throws NonConnecteException si aucun client n'est connecté
@@ -263,10 +257,9 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Renvoie la liste des commandes en cours du client connecté.
-   *
-   * Les commandes retournées sont celles en cours de création, ordonnées par
-   * date de création (de la plus ancienne à la plus récente).
+   * Renvoie la liste des commandes en cours du client connecté. Les commandes
+   * retournées sont celles en cours de création, ordonnées par date de création
+   * (de la plus ancienne à la plus récente).
    *
    * @return la liste des commandes en cours
    * @throws NonConnecteException si aucun client n'est connecté
@@ -291,10 +284,9 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Renvoie la liste des commandes passées du client connecté.
-   *
-   * Les commandes retournées sont celles qui ont été validées ou traitées,
-   * ordonnées par date de création.
+   * Renvoie la liste des commandes passées du client connecté. Les commandes
+   * retournées sont celles qui ont été validées ou traitées, ordonnées par date
+   * de création.
    *
    * @return la liste des commandes passées
    * @throws NonConnecteException si aucun client n'est connecté
@@ -341,10 +333,9 @@ public class GestionClient implements InterClient {
   }
   
   /**
-   * Ajoute un filtre sur les ingrédients.
-   *
-   * Les pizzas conservées doivent contenir tous les ingrédients fournis. Les
-   * ingrédients invalides sont ignorés.
+   * Ajoute un filtre sur les ingrédients. Les pizzas conservées doivent
+   * contenir tous les ingrédients fournis. Les ingrédients invalides sont
+   * ignorés.
    *
    * @param ingredients les noms des ingrédients à filtrer
    */

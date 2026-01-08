@@ -10,10 +10,9 @@ import java.util.Set;
 
 
 /**
- * Classe contenant les données partagées de la pizzeria.
- *
- * Elle centralise l'ensemble des informations utilisées par les services client
- * et pizzaïolo.
+ * Classe contenant les données partagées de la pizzeria. Elle centralise
+ * l'ensemble des informations utilisées par les services client et pizzaïolo.
+ * 
  * 
  * @author Dorian Fleurquin
  */
@@ -47,10 +46,8 @@ public class PizzeriaData implements java.io.Serializable {
   public final Map<Pizza, Set<Evaluation>> evaluationsParPizza;
   
   /**
-   * Constructeur de la classe PizzeriaData.
-   *
-   * Initialise les différentes structures de données nécessaires au
-   * fonctionnement de la pizzeria.
+   * Constructeur de la classe PizzeriaData. Initialise les différentes
+   * structures de données nécessaires au fonctionnement de la pizzeria.
    */
   public PizzeriaData() {
     clientsByEmail = new HashMap<>();

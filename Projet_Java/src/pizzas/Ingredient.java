@@ -14,11 +14,18 @@ public class Ingredient implements java.io.Serializable {
    */
   private static final long serialVersionUID = 1L;
   
-  
+  /** Nom de l'ingrédient. */
   String nom;
+  
+  /** Prix de l'ingrédient. */
   double prix;
   
-  
+  /**
+   * Construit un nouvel ingrédient avec un nom et un prix.
+   *
+   * @param nom le nom de l'ingrédient
+   * @param prix le prix de l'ingrédient
+   */
   public Ingredient(String nom, double prix) {
     this.nom = nom;
     this.prix = prix;

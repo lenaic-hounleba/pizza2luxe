@@ -36,7 +36,7 @@ public class Pizza implements Serializable {
     this.type = type;
     this.ingredients = new HashSet<>();
     this.prixVente = 0.0;
-    this.photo = null;
+    this.setPhoto(null);
   }
   
   /**
@@ -125,6 +125,18 @@ public class Pizza implements Serializable {
     return ingredients;
   }
   
+  
+  /**
+   * Modifie l'ensemble des ingrédients de la pizza.
+   *
+   * <p>Si l'ensemble fourni est {@code null}, un nouvel ensemble vide est
+   * automatiquement créé afin de garantir que la liste des ingrédients ne soit
+   * jamais {@code null}.
+   * </p>
+   *
+   * @param ingredients le nouvel ensemble d'ingrédients de la pizza, ou
+   *        {@code null} pour réinitialiser avec un ensemble vide
+   */
   public void setIngredients(Set<Ingredient> ingredients) {
     if (ingredients == null) {
       this.ingredients = new HashSet<>();
@@ -154,12 +166,22 @@ public class Pizza implements Serializable {
       return false;
     }
     // Projet simplifié : on stocke seulement le nom du fichier
-    this.photo = file;
+    this.setPhoto(file);
     return true;
   }
   
   @Override
   public String toString() {
     return nom;
+  }
+  
+  
+  public String getPhoto() {
+    return photo;
+  }
+  
+  
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
 }

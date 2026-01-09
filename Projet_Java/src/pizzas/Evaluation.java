@@ -3,8 +3,8 @@ package pizzas;
 /**
  * Classe qui représente une évaluation laissée par un client sur une pizza.
  *
- * Une évaluation contient un client, une pizza, une note entre 0 et 5 et un
- * commentaire optionnel.
+ * <p>Une évaluation contient un client, une pizza, une note entre 0 et 5 et un
+ * commentaire optionnel.</p>
  *
  * @author Dorian Fleurquin
  */

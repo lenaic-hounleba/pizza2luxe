@@ -204,19 +204,19 @@ public class GestionPizzaiolo implements InterPizzaiolo {
       return -2;
     }
     
-    Ingredient aRetirer = null;
+    Ingredient aretirer = null;
     for (Ingredient ing : pizza.getIngredients()) {
       if (ing != null && ing.getNom().equals(nomIngredient)) {
-        aRetirer = ing;
+        aretirer = ing;
         break;
       }
     }
     
-    if (aRetirer == null) {
+    if (aretirer == null) {
       return -3;
     }
     
-    pizza.getIngredients().remove(aRetirer);
+    pizza.getIngredients().remove(aretirer);
     return 0;
   }
   

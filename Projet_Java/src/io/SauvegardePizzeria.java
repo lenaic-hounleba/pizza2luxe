@@ -5,15 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import pizzas.PizzeriaData;
 
 /**
  * Implémentation de la sauvegarde des données de la pizzeria via la
  * sérialisation Java.
  *
- * Cette classe sauvegarde et recharge l'objet PizzeriaData dans un fichier à la
- * fermeture et à l'ouverture de la fenetre respectivement.
+ * <p>Cette classe sauvegarde et recharge l'objet PizzeriaData dans un fichier à la
+ * fermeture et à l'ouverture de la fenetre respectivement.</p>
  *
  * @author lenaic-love.hounleba
  */

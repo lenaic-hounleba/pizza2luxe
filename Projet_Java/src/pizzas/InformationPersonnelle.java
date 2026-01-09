@@ -62,8 +62,9 @@ public final class InformationPersonnelle implements java.io.Serializable {
   public int getAge() {
     if (age >= 0) {
       return age;
-    } else
+    } else {
       return 0;
+    }
   }
   
   /**

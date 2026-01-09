@@ -503,18 +503,18 @@ public class GestionClient implements InterClient {
       return false;
     }
     
-    boolean aCommande = false;
+    boolean acommande = false;
     
     for (Commande cmd : data.commandes) {
       if (cmd.getClient() == clientConnecte
           && cmd.getStatut() == EtatCommande.traitee
           && cmd.getPizzas().containsKey(pizza)) {
-        aCommande = true;
+        acommande = true;
         break;
       }
     }
     
-    if (!aCommande) {
+    if (!acommande) {
       throw new CommandeException("Le client n'a jamais commandé cette pizza.");
     }
     

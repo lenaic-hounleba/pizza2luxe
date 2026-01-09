@@ -1,18 +1,20 @@
 package tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import pizzas.Ingredient;
 import pizzas.Pizza;
 import pizzas.TypePizza;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 /**
  * Tests JUnit de la classe {@link pizzas.Pizza}.
  *
- * Ces tests vérifient :
+ * <p>Ces tests vérifient :
+ * </p>
  * <ul>
  * <li>La création d'une pizza</li>
  * <li>La gestion des ingrédients</li>
@@ -25,10 +27,10 @@ import org.junit.jupiter.api.Test;
  */
 public class TestPizza {
   
-  /** Pizza testée */
+  /** Pizza testée. */
   private Pizza pizza;
   
-  /** Ingrédients de test */
+  /** Ingrédients de test. */
   private Ingredient fromage;
   private Ingredient tomate;
   
@@ -66,7 +68,7 @@ public class TestPizza {
   }
   
   /**
-   * Vérifie qu'un ingrédient ne peut pas être ajouté en double
+   * Vérifie qu'un ingrédient ne peut pas être ajouté en double.
    */
   @Test
   void testPasDeDoublonIngredient() {
@@ -100,7 +102,7 @@ public class TestPizza {
   }
   
   /**
-   * Vérifie la modification du type de la pizza
+   * Vérifie la modification du type de la pizza.
    */
   @Test
   void testChangerType() {

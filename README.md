@@ -1,93 +1,218 @@
-# Projet Java
+# 🍕 Pizza2Luxe - Application Java de création et commande de pizzas
 
+> Application Java structurée en architecture MVC avec gestion complète du cycle de vie des commandes et persistance des données.
 
+---
 
-## Getting started
+## 📌 Description
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Pizza2Luxe est une application Java de gestion de pizzeria permettant à un **pizzaïolo** de gérer son catalogue de pizzas et d'ingrédients, et à des **clients** de passer des commandes, de les suivre et d'évaluer les pizzas reçues.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Le système s'articule autour de **deux rôles distincts** :
 
-## Add your files
+| Rôle | Droits |
+|---|---|
+| 👨‍🍳 Pizzaïolo | Créer les ingrédients et les pizzas, consulter et traiter les commandes, visualiser les statistiques |
+| 👤 Client | Créer un compte, se connecter, passer des commandes, consulter son historique, évaluer les pizzas |
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+Le projet suit une architecture proche du modèle **MVC** avec séparation claire entre logique métier (`pizzas/`), interface graphique (`ui/`) et persistance des données (`io/`).
+
+---
+
+## 🧩 Architecture simplifiée
 
 ```
-cd existing_repo
-git remote add origin https://gitlab-depinfo-2025.univ-brest.fr/e22507733/projet-java.git
-git branch -M main
-git push -uf origin main
+┌─────────────────────────────────────────┐
+│           UI - JavaFX (FXML)            │  ← client.fxml / pizzaiolo.fxml
+│   ClientControleur / PizzaioloControleur│
+└────────────────────┬────────────────────┘
+                     │ appelle
+┌────────────────────▼────────────────────┐
+│         Interfaces métier               │
+│   InterClient  /  InterPizzaiolo        │
+└────────────────────┬────────────────────┘
+                     │ implémentées par
+┌────────────────────▼────────────────────┐
+│           Logique métier (Model)        │
+│  GestionClient / GestionPizzaiolo       │
+│  Commande · Pizza · Client · Evaluation │
+│  EtatCommande · TypePizza · Ingredient  │
+└────────────────────┬────────────────────┘
+                     │ persisté par
+┌────────────────────▼────────────────────┐
+│         Persistance - io/               │
+│   SauvegardePizzeria → pizzeria.dat     │
+└─────────────────────────────────────────┘
 ```
 
-## Integrate with your tools
+---
 
-- [ ] [Set up project integrations](https://gitlab-depinfo-2025.univ-brest.fr/e22507733/projet-java/-/settings/integrations)
+## 📸 Aperçu de l'application
 
-## Collaborate with your team
+*(Captures d'écran à venir)*
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+> 📁 Les screenshots seront disponibles dans `/docs/screenshots/`
 
-## Test and Deploy
+---
 
-Use the built-in continuous integration in GitLab.
+## ⚙️ Stack technique
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- **Langage** : Java
+- **Interface graphique** : JavaFX (FXML)
+- **Tests** : JUnit (tests unitaires et d'intégration)
+- **Qualité du code** : Javadoc · Checkstyle
+- **Persistance** : Sérialisation Java (`pizzeria.dat`)
+- **Livrable** : JAR exécutable (`Pizzaiolo.jar`)
 
-***
+---
 
-# Editing this README
+## 🧠 Fonctionnalités principales
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Côté client
+- 🔐 Création de compte et connexion sécurisée
+- 🍕 Consultation du catalogue de pizzas (avec filtres)
+- 🛒 Création et gestion des commandes (ajout de pizzas, validation)
+- 📋 Consultation de l'historique des commandes traitées
+- ⭐ Évaluation des pizzas après réception
 
-## Suggestions for a good README
+### Côté pizzaïolo
+- ➕ Création et gestion des ingrédients et pizzas
+- 📦 Consultation et traitement des commandes validées
+- 📊 Statistiques de ventes et de bénéfices (par client, par commande, global)
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Règles métier clés
+- 🔄 Une commande suit trois états stricts : **créée → validée → traitée**
+- ❌ Une commande validée ne peut plus être modifiée
+- 📖 La consultation d'une commande par le pizzaïolo la marque automatiquement comme traitée
+- ⭐ L'évaluation d'une pizza n'est possible qu'après réception de la commande
+- 🍕 Les pizzas ont un type (`TypePizza`) qui conditionne les ingrédients autorisés
 
-## Name
-Choose a self-explaining name for your project.
+---
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 🏗️ Architecture du projet
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```
+pizza2luxe/
+├── Projet_Java/
+│   └── src/
+│       ├── MainPizzas.java              # point d'entrée de l'application
+│       ├── pizzas/                      # logique métier
+│       │   ├── Client.java
+│       │   ├── Commande.java            # états, ajout pizzas, bénéfice
+│       │   ├── CommandeException.java   # exception métier commandes
+│       │   ├── EtatCommande.java        # enum : creee / validee / traitee
+│       │   ├── Evaluation.java
+│       │   ├── GestionClient.java       # interface InterClient implémentée
+│       │   ├── GestionPizzaiolo.java    # interface InterPizzaiolo implémentée
+│       │   ├── InformationPersonnelle.java
+│       │   ├── Ingredient.java
+│       │   ├── InterClient.java         # interface du client
+│       │   ├── InterPizzaiolo.java      # interface du Pizzaiolo
+│       │   ├── NonConnecteException.java
+│       │   ├── Pizza.java
+│       │   ├── PizzeriaData.java        # données globales de la pizzeria
+│       │   └── TypePizza.java           # enum des types de pizzas
+│       ├── io/                          # persistance
+│       │   ├── InterSauvegarde.java
+│       │   └── SauvegardePizzeria.java  # sérialisation / désérialisation
+│       ├── tests/                       # tests JUnit
+│       │   ├── TestClient.java
+│       │   ├── TestCommande.java
+│       │   ├── TestInformationPersonnelle.java
+│       │   └── TestPizza.java
+│       └── ui/                          # interface graphique JavaFX
+│           ├── MainInterface.java
+│           ├── AppContext.java
+│           ├── client.fxml
+│           ├── ClientControleur.java
+│           ├── pizzaiolo.fxml
+│           └── PizzaioloControleur.java
+└── javadocs/
+    ├── Pizzaiolo.jar
+    ├── jvdoc.zip
+    └── Plan_de_tests_Pizzeria_Pizza2Luxe.pdf
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+---
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## 🚀 Lancement de l'application
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Prérequis
+- Java 17+
+- JavaFX SDK (si non installé globalement)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Exécution
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```bash
+# Si JavaFX est installé globalement
+java -jar Pizzaiolo.jar
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+# Si JavaFX n'est pas installé globalement
+java --module-path <chemin_javafx>/lib --add-modules javafx.controls,javafx.fxml -jar Pizzaiolo.jar
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+---
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## 🧪 Tests
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- Tests unitaires : `TestClient`, `TestCommande`, `TestPizza`, `TestInformationPersonnelle`
+- Framework : **JUnit**
+- Plan de tests complet disponible : `Plan_de_tests_Pizzeria_Pizza2Luxe.pdf`
 
-## License
-For open source projects, say how it is licensed.
+---
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## 🔐 Qualité du code
+
+- Documentation **Javadoc** complète (disponible dans `Projet_Java/doc/`)
+- Conformité **Checkstyle** vérifiée
+- Respect strict des interfaces imposées par le professeur (`InterClient`, `InterPizzaiolo`)
+
+---
+
+## ⚠️ Limites
+
+> Projet développé en groupe de 3, dans un cadre académique avec des délais contraints.
+
+- Interface utilisateur basée sur la maquette fournie par le professeur
+- Persistance par sérialisation Java (pas de base de données)
+- Application non déployée en ligne (exécutable local uniquement)
+
+---
+
+## 👥 Équipe & contributions
+
+Projet réalisé en groupe de 3 — **chef de groupe : Lenaïc Love HOUNLEBA**
+
+### 💡 Ma contribution principale
+- Module **commandes** complet : classe `Commande`, `EtatCommande`, `CommandeException`, logique métier et transitions d'états
+- **Persistance des données** : sérialisation / désérialisation (`SauvegardePizzeria`, `PizzeriaData`)
+- **Tests JUnit** : `TestCommande`, `TestClient`, `TestPizza`, `TestInformationPersonnelle`
+- Application de **Checkstyle** sur l'ensemble du code
+- Génération de la **Javadoc** complète
+- Coordination du groupe et intégration des contributions
+
+---
+
+## 📚 Compétences mobilisées
+
+- Programmation orientée objet en **Java**
+- Interface graphique avec **JavaFX** (FXML, contrôleurs)
+- Tests unitaires et d'intégration avec **JUnit**
+- Persistance des données par **sérialisation Java**
+- Documentation **Javadoc** et conformité **Checkstyle**
+- Conception d'interfaces et respect d'un **contrat d'interface** imposé
+
+---
+
+## 👨‍💻 Auteur principal
+
+**Lenaïc Love HOUNLEBA**  
+L3 Informatique - UBO Brest (diplôme en cours d'obtention, 2025-2026)  
+CEO & Développeur Full Stack - [ComeUp](https://comeup.com/fr/@lenaic-1)
+
+🔗 GitHub : [github.com/lenaic-hounleba](https://github.com/lenaic-hounleba)  
+📧 lovehounleba@gmail.com
+
+---
+
+> *Projet réalisé dans le cadre de l'EC Conception d'Applications (CA) - Licence 3 Informatique, Université de Bretagne Occidentale, 2025-2026.*

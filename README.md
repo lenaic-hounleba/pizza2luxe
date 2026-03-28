@@ -1,5 +1,12 @@
 # 🍕 Pizza2Luxe - Application Java de création et commande de pizzas
 
+![Pizza Ordering System](https://img.shields.io/badge/System-Pizza%20Ordering-green)
+![Java](https://img.shields.io/badge/Language-Java-red)
+![JavaFX](https://img.shields.io/badge/Framework-JavaFX-blue)
+![OOP](https://img.shields.io/badge/Paradigm-OOP-yellow)
+![MVC](https://img.shields.io/badge/Architecture-MVC-purple)
+![Desktop Application](https://img.shields.io/badge/Type-Desktop-orange)
+
 > Application Java complète (JavaFX) avec architecture MVC, gestion des commandes en temps réel et persistance des données.
 
 ---

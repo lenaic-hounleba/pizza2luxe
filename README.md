@@ -49,9 +49,11 @@ Le projet suit une architecture proche du modèle **MVC** avec séparation clair
 
 ## 📸 Aperçu de l'application
 
-*(Captures d'écran à venir)*
+### 👨‍🍳 Interface Pizzaïolo
+![Interface Pizzaïolo](docs/screenshots/interface_pizzaiolo.png)
 
-> 📁 Les screenshots seront disponibles dans `/docs/screenshots/`
+### 👤 Interface Client
+![Interface Client](docs/screenshots/interface_client.png)
 
 ---
 

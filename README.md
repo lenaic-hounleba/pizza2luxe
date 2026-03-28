@@ -208,8 +208,7 @@ Projet réalisé en groupe de 3 - **chef de groupe : Lenaïc Love HOUNLEBA (resp
 
 ## 👨‍💻 Auteur principal
 
-**Lenaïc Love HOUNLEBA**  
-L3 Informatique - UBO Brest (diplôme en cours d'obtention, 2025-2026)  
+**Lenaïc Love HOUNLEBA**   
 CEO & Développeur Full Stack - [ComeUp](https://comeup.com/fr/@lenaic-1)
 
 🔗 GitHub : [github.com/lenaic-hounleba](https://github.com/lenaic-hounleba)  

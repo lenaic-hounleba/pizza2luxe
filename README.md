@@ -183,7 +183,7 @@ java --module-path <chemin_javafx>/lib --add-modules javafx.controls,javafx.fxml
 
 ## 👥 Équipe & contributions
 
-Projet réalisé en groupe de 3 — **chef de groupe : Lenaïc Love HOUNLEBA**
+Projet réalisé en groupe de 3 - **chef de groupe : Lenaïc Love HOUNLEBA (responsable architecture & logique métier)**
 
 ### 💡 Ma contribution principale
 - Module **commandes** complet : classe `Commande`, `EtatCommande`, `CommandeException`, logique métier et transitions d'états

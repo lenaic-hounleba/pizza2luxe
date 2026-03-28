@@ -1,6 +1,6 @@
 # 🍕 Pizza2Luxe - Application Java de création et commande de pizzas
 
-> Application Java structurée en architecture MVC avec gestion complète du cycle de vie des commandes et persistance des données.
+> Application Java complète (JavaFX) avec architecture MVC, gestion des commandes en temps réel et persistance des données.
 
 ---
 

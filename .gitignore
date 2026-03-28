@@ -6,3 +6,6 @@
 /Projet_Java/.settings
 /Projet_Java/.checkstyle
 .DS_Store
+bin/
+.metadata/
+.checkstyle

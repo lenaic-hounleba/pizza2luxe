@@ -1,4 +1,4 @@
-# 🍕 Pizza2Luxe - Application Java de création et commande de pizzas
+# 🍕 Pizza2Luxe - Java Application for Pizza Creation and Ordering
 
 ![Pizza Ordering System](https://img.shields.io/badge/System-Pizza%20Ordering-green)
 ![Java](https://img.shields.io/badge/Language-Java-red)
@@ -7,129 +7,129 @@
 ![MVC](https://img.shields.io/badge/Architecture-MVC-purple)
 ![Desktop Application](https://img.shields.io/badge/Type-Desktop-orange)
 
-> Application Java complète (JavaFX) avec architecture MVC, gestion des commandes en temps réel et persistance des données.
+> Complete Java application (JavaFX) with MVC architecture, real-time order management and data persistence.
 
 ---
 
 ## 📌 Description
 
-Pizza2Luxe est une application Java de gestion de pizzeria permettant à un **pizzaïolo** de gérer son catalogue de pizzas et d'ingrédients, et à des **clients** de passer des commandes, de les suivre et d'évaluer les pizzas reçues.
+Pizza2Luxe is a Java pizzeria management application allowing a **pizzaiolo** to manage his pizza and ingredient catalog, and **clients** to place orders, track them and rate the pizzas received.
 
-Le système s'articule autour de **deux rôles distincts** :
+The system is built around **two distinct roles**:
 
-| Rôle | Droits |
+| Role | Rights |
 |---|---|
-| 👨‍🍳 Pizzaïolo | Créer les ingrédients et les pizzas, consulter et traiter les commandes, visualiser les statistiques |
-| 👤 Client | Créer un compte, se connecter, passer des commandes, consulter son historique, évaluer les pizzas |
+| 👨‍🍳 Pizzaiolo | Create ingredients and pizzas, view and process orders, visualize statistics |
+| 👤 Client | Create an account, log in, place orders, view their history, rate pizzas |
 
-Le projet suit une architecture proche du modèle **MVC** avec séparation claire entre logique métier (`pizzas/`), interface graphique (`ui/`) et persistance des données (`io/`).
+The project follows an architecture close to the **MVC** model with a clear separation between business logic (`pizzas/`), graphical interface (`ui/`) and data persistence (`io/`).
 
 ---
 
-## 🧩 Architecture simplifiée
+## 🧩 Simplified Architecture
 
 ```
 ┌─────────────────────────────────────────┐
 │           UI - JavaFX (FXML)            │  ← client.fxml / pizzaiolo.fxml
 │   ClientControleur / PizzaioloControleur│
 └────────────────────┬────────────────────┘
-                     │ appelle
+                     │ calls
 ┌────────────────────▼────────────────────┐
-│         Interfaces métier               │
+│         Business Interfaces             │
 │   InterClient  /  InterPizzaiolo        │
 └────────────────────┬────────────────────┘
-                     │ implémentées par
+                     │ implemented by
 ┌────────────────────▼────────────────────┐
-│           Logique métier (Model)        │
+│           Business Logic (Model)        │
 │  GestionClient / GestionPizzaiolo       │
 │  Commande · Pizza · Client · Evaluation │
 │  EtatCommande · TypePizza · Ingredient  │
 └────────────────────┬────────────────────┘
-                     │ persisté par
+                     │ persisted by
 ┌────────────────────▼────────────────────┐
-│         Persistance - io/               │
+│         Persistence - io/               │
 │   SauvegardePizzeria → pizzeria.dat     │
 └─────────────────────────────────────────┘
 ```
 
 ---
 
-## 📸 Aperçu de l'application
+## 📸 Application Preview
 
-### 👨‍🍳 Interface Pizzaïolo
-![Interface Pizzaïolo](docs/screenshots/interface_pizzaiolo.png)
+### 👨‍🍳 Pizzaiolo Interface
+![Pizzaiolo Interface](docs/screenshots/interface_pizzaiolo.png)
 
-### 👤 Interface Client
-![Interface Client](docs/screenshots/interface_client.png)
-
----
-
-## ⚙️ Stack technique
-
-- **Langage** : Java
-- **Interface graphique** : JavaFX (FXML)
-- **Tests** : JUnit (tests unitaires et d'intégration)
-- **Qualité du code** : Javadoc · Checkstyle
-- **Persistance** : Sérialisation Java (`pizzeria.dat`)
-- **Livrable** : JAR exécutable (`Pizzaiolo.jar`)
+### 👤 Client Interface
+![Client Interface](docs/screenshots/interface_client.png)
 
 ---
 
-## 🧠 Fonctionnalités principales
+## ⚙️ Tech Stack
 
-### Côté client
-- 🔐 Création de compte et connexion sécurisée
-- 🍕 Consultation du catalogue de pizzas (avec filtres)
-- 🛒 Création et gestion des commandes (ajout de pizzas, validation)
-- 📋 Consultation de l'historique des commandes traitées
-- ⭐ Évaluation des pizzas après réception
-
-### Côté pizzaïolo
-- ➕ Création et gestion des ingrédients et pizzas
-- 📦 Consultation et traitement des commandes validées
-- 📊 Statistiques de ventes et de bénéfices (par client, par commande, global)
-
-### Règles métier clés
-- 🔄 Une commande suit trois états stricts : **créée → validée → traitée**
-- ❌ Une commande validée ne peut plus être modifiée
-- 📖 La consultation d'une commande par le pizzaïolo la marque automatiquement comme traitée
-- ⭐ L'évaluation d'une pizza n'est possible qu'après réception de la commande
-- 🍕 Les pizzas ont un type (`TypePizza`) qui conditionne les ingrédients autorisés
+- **Language** : Java
+- **Graphical Interface** : JavaFX (FXML)
+- **Tests** : JUnit (unit and integration tests)
+- **Code Quality** : Javadoc · Checkstyle
+- **Persistence** : Java Serialization (`pizzeria.dat`)
+- **Deliverable** : Executable JAR (`Pizzaiolo.jar`)
 
 ---
 
-## 🏗️ Architecture du projet
+## 🧠 Main Features
+
+### Client side
+- 🔐 Account creation and secure login
+- 🍕 Browse the pizza catalog (with filters)
+- 🛒 Create and manage orders (add pizzas, validate)
+- 📋 View the history of processed orders
+- ⭐ Rate pizzas after receiving them
+
+### Pizzaiolo side
+- ➕ Create and manage ingredients and pizzas
+- 📦 View and process validated orders
+- 📊 Sales and profit statistics (per client, per order, global)
+
+### Key business rules
+- 🔄 An order follows three strict states: **created → validated → processed**
+- ❌ A validated order can no longer be modified
+- 📖 Viewing an order by the pizzaiolo automatically marks it as processed
+- ⭐ Rating a pizza is only possible after receiving the order
+- 🍕 Pizzas have a type (`TypePizza`) that determines the allowed ingredients
+
+---
+
+## 🏗️ Project Architecture
 
 ```
 pizza2luxe/
 ├── Projet_Java/
 │   └── src/
-│       ├── MainPizzas.java              # point d'entrée de l'application
-│       ├── pizzas/                      # logique métier
+│       ├── MainPizzas.java              # application entry point
+│       ├── pizzas/                      # business logic
 │       │   ├── Client.java
-│       │   ├── Commande.java            # états, ajout pizzas, bénéfice
-│       │   ├── CommandeException.java   # exception métier commandes
-│       │   ├── EtatCommande.java        # enum : creee / validee / traitee
+│       │   ├── Commande.java            # states, add pizzas, profit
+│       │   ├── CommandeException.java   # order business exception
+│       │   ├── EtatCommande.java        # enum: creee / validee / traitee
 │       │   ├── Evaluation.java
-│       │   ├── GestionClient.java       # interface InterClient implémentée
-│       │   ├── GestionPizzaiolo.java    # interface InterPizzaiolo implémentée
+│       │   ├── GestionClient.java       # InterClient interface implemented
+│       │   ├── GestionPizzaiolo.java    # InterPizzaiolo interface implemented
 │       │   ├── InformationPersonnelle.java
 │       │   ├── Ingredient.java
-│       │   ├── InterClient.java         # interface du client
-│       │   ├── InterPizzaiolo.java      # interface du Pizzaiolo
+│       │   ├── InterClient.java         # client interface
+│       │   ├── InterPizzaiolo.java      # pizzaiolo interface
 │       │   ├── NonConnecteException.java
 │       │   ├── Pizza.java
-│       │   ├── PizzeriaData.java        # données globales de la pizzeria
-│       │   └── TypePizza.java           # enum des types de pizzas
-│       ├── io/                          # persistance
+│       │   ├── PizzeriaData.java        # global pizzeria data
+│       │   └── TypePizza.java           # pizza types enum
+│       ├── io/                          # persistence
 │       │   ├── InterSauvegarde.java
-│       │   └── SauvegardePizzeria.java  # sérialisation / désérialisation
-│       ├── tests/                       # tests JUnit
+│       │   └── SauvegardePizzeria.java  # serialization / deserialization
+│       ├── tests/                       # JUnit tests
 │       │   ├── TestClient.java
 │       │   ├── TestCommande.java
 │       │   ├── TestInformationPersonnelle.java
 │       │   └── TestPizza.java
-│       └── ui/                          # interface graphique JavaFX
+│       └── ui/                          # JavaFX graphical interface
 │           ├── MainInterface.java
 │           ├── AppContext.java
 │           ├── client.fxml
@@ -144,83 +144,83 @@ pizza2luxe/
 
 ---
 
-## 🚀 Lancement de l'application
+## 🚀 Running the Application
 
-### Prérequis
+### Prerequisites
 - Java 17+
-- JavaFX SDK (si non installé globalement)
+- JavaFX SDK (if not globally installed)
 
-### Exécution
+### Execution
 
 ```bash
-# Si JavaFX est installé globalement
+# If JavaFX is globally installed
 java -jar Pizzaiolo.jar
 
-# Si JavaFX n'est pas installé globalement
-java --module-path <chemin_javafx>/lib --add-modules javafx.controls,javafx.fxml -jar Pizzaiolo.jar
+# If JavaFX is not globally installed
+java --module-path <javafx_path>/lib --add-modules javafx.controls,javafx.fxml -jar Pizzaiolo.jar
 ```
 
 ---
 
 ## 🧪 Tests
 
-- Tests unitaires : `TestClient`, `TestCommande`, `TestPizza`, `TestInformationPersonnelle`
-- Framework : **JUnit**
-- Plan de tests complet disponible : `Plan_de_tests_Pizzeria_Pizza2Luxe.pdf`
+- Unit tests: `TestClient`, `TestCommande`, `TestPizza`, `TestInformationPersonnelle`
+- Framework: **JUnit**
+- Complete test plan available: `Plan_de_tests_Pizzeria_Pizza2Luxe.pdf`
 
 ---
 
-## 🔐 Qualité du code
+## 🔐 Code Quality
 
-- Documentation **Javadoc** complète (disponible dans `Projet_Java/doc/`)
-- Conformité **Checkstyle** vérifiée
-- Respect strict des interfaces imposées par le professeur (`InterClient`, `InterPizzaiolo`)
-
----
-
-## ⚠️ Limites
-
-> Projet développé en groupe de 3, dans un cadre académique avec des délais contraints.
-
-- Interface utilisateur basée sur la maquette fournie par le professeur
-- Persistance par sérialisation Java (pas de base de données)
-- Application non déployée en ligne (exécutable local uniquement)
+- Complete **Javadoc** documentation (available in `Projet_Java/doc/`)
+- **Checkstyle** compliance verified
+- Strict adherence to the interfaces imposed by the professor (`InterClient`, `InterPizzaiolo`)
 
 ---
 
-## 👥 Équipe & contributions
+## ⚠️ Limits
 
-Projet réalisé en groupe de 3 - **chef de groupe : Lenaïc Love HOUNLEBA (responsable architecture & logique métier)**
+> Project developed in a group of 3, in an academic context with tight deadlines.
 
-### 💡 Ma contribution principale
-- Module **commandes** complet : classe `Commande`, `EtatCommande`, `CommandeException`, logique métier et transitions d'états
-- **Persistance des données** : sérialisation / désérialisation (`SauvegardePizzeria`, `PizzeriaData`)
-- **Tests JUnit** : `TestCommande`, `TestClient`, `TestPizza`, `TestInformationPersonnelle`
-- Application de **Checkstyle** sur l'ensemble du code
-- Génération de la **Javadoc** complète
-- Coordination du groupe et intégration des contributions
+- User interface based on the mockup provided by the professor
+- Persistence via Java serialization (no database)
+- Application not deployed online (local executable only)
 
 ---
 
-## 📚 Compétences mobilisées
+## 👥 Team & Contributions
 
-- Programmation orientée objet en **Java**
-- Interface graphique avec **JavaFX** (FXML, contrôleurs)
-- Tests unitaires et d'intégration avec **JUnit**
-- Persistance des données par **sérialisation Java**
-- Documentation **Javadoc** et conformité **Checkstyle**
-- Conception d'interfaces et respect d'un **contrat d'interface** imposé
+Project carried out in a group of 3 - **group leader: Lenaïc Love HOUNLEBA (responsible for architecture & business logic)**
+
+### 💡 My Main Contribution
+- Complete **order** module: `Commande`, `EtatCommande`, `CommandeException` classes, business logic and state transitions
+- **Data persistence**: serialization / deserialization (`SauvegardePizzeria`, `PizzeriaData`)
+- **JUnit tests**: `TestCommande`, `TestClient`, `TestPizza`, `TestInformationPersonnelle`
+- **Checkstyle** application across the entire codebase
+- Complete **Javadoc** generation
+- Group coordination and contribution integration
 
 ---
 
-## 👨‍💻 Auteur principal
+## 📚 Skills Demonstrated
 
-**Lenaïc Love HOUNLEBA**   
-CEO & Développeur Full Stack - [ComeUp](https://comeup.com/fr/@lenaic-1)
+- Object-oriented programming in **Java**
+- Graphical interface with **JavaFX** (FXML, controllers)
+- Unit and integration testing with **JUnit**
+- Data persistence via **Java serialization**
+- **Javadoc** documentation and **Checkstyle** compliance
+- Interface design and adherence to an imposed **interface contract**
+
+---
+
+## 👨‍💻 Main Author
+
+**Lenaïc Love HOUNLEBA**  
+CEO & Full Stack Developer - [ComeUp](https://comeup.com/fr/@lenaic-1)
 
 🔗 GitHub : [github.com/lenaic-hounleba](https://github.com/lenaic-hounleba)  
 📧 lovehounleba@gmail.com
 
 ---
 
-> *Projet réalisé dans le cadre de l'EC Conception d'Applications (CA) - Licence 3 Informatique, Université de Bretagne Occidentale, 2025-2026.*
+> *Project carried out as part of the CA (Application Design) module - L3 Computer Science, Université de Bretagne Occidentale, 2025-2026.*
